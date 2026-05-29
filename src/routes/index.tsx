@@ -114,7 +114,7 @@ function HomePage() {
       {/* Interactive 3D Body Muscle Map */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <BodyMuscleMap />
+          <MuscleModel3D />
         </div>
       </section>
 
