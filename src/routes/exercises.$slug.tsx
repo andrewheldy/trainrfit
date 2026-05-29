@@ -49,7 +49,7 @@ export const Route = createFileRoute("/exercises/$slug")({
 });
 
 function ExerciseDetail() {
-  const ex = Route.useLoaderData();
+  const ex: Exercise = Route.useLoaderData();
   const lift = useTodayLift();
   const added = lift.items.some((i) => i.slug === ex.slug);
   const videoId = getYouTubeId(ex.youtubeUrl);
