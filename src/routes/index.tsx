@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { useState } from "react";
+
 import { ArrowRight, Dumbbell, Target, LineChart, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MuscleMapImage } from "@/components/gym/muscle-map-image";
