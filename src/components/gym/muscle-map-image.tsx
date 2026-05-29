@@ -15,8 +15,7 @@ type Hotspot = {
   height: number;
 };
 
-const HOTSPOTS: Hotspot[] = [
-  // ===== FRONT (left half) =====
+const FRONT_HOTSPOTS: Hotspot[] = [
   { slug: "shoulders", label: "Shoulders", top: 19, left: 23.5, width: 4.5, height: 6 },
   { slug: "shoulders", label: "Shoulders", top: 19, left: 32.5, width: 4.5, height: 6 },
   { slug: "chest", label: "Chest", top: 21, left: 26.5, width: 8, height: 9 },
@@ -31,8 +30,9 @@ const HOTSPOTS: Hotspot[] = [
   { slug: "quads", label: "Quads", top: 49, left: 31, width: 4.5, height: 18 },
   { slug: "calves", label: "Calves", top: 67, left: 25.5, width: 4, height: 10 },
   { slug: "calves", label: "Calves", top: 67, left: 31, width: 4, height: 10 },
+];
 
-  // ===== BACK (right half) =====
+const BACK_HOTSPOTS: Hotspot[] = [
   { slug: "back", label: "Upper Back", top: 22, left: 65, width: 8, height: 8 },
   { slug: "back", label: "Lats", top: 28, left: 62, width: 14, height: 10 },
   { slug: "triceps", label: "Triceps", top: 27, left: 58, width: 3.5, height: 10 },
@@ -47,10 +47,67 @@ const HOTSPOTS: Hotspot[] = [
   { slug: "calves", label: "Calves", top: 67, left: 71, width: 4, height: 10 },
 ];
 
+const HOTSPOTS: Hotspot[] = [...FRONT_HOTSPOTS, ...BACK_HOTSPOTS];
+
+/**
+ * Renders the full side-by-side source image cropped to one half.
+ * `side` controls whether the front (left 50%) or back (right 50%) is shown.
+ * Hotspots are remapped from full-image coordinates to half-image coordinates.
+ */
+function HalfMap({ side, hotspots }: { side: "front" | "back"; hotspots: Hotspot[] }) {
+  const offsetLeft = side === "front" ? 0 : 50; // % of full image to subtract
+  return (
+    <div className="relative overflow-hidden rounded-xl border border-border bg-black">
+      {/* Image is rendered at 200% width and shifted so the desired half fills the box */}
+      <div className="relative w-full" style={{ aspectRatio: "1 / 2" }}>
+        <img
+          src={muscleMap}
+          alt={
+            side === "front"
+              ? "Front muscle map — tap any muscle group to see exercises"
+              : "Back muscle map — tap any muscle group to see exercises"
+          }
+          className="absolute top-0 h-full max-w-none select-none"
+          style={{
+            width: "200%",
+            left: side === "front" ? "0%" : "-100%",
+          }}
+          draggable={false}
+        />
+        {hotspots.map((h, i) => (
+          <Link
+            key={`${side}-${h.slug}-${i}`}
+            to="/muscles/$slug"
+            params={{ slug: h.slug }}
+            aria-label={`${h.label} exercises`}
+            title={h.label}
+            className="group absolute rounded-md outline-none ring-0 transition-all duration-200 hover:bg-lime/25 hover:ring-2 hover:ring-lime focus-visible:bg-lime/25 focus-visible:ring-2 focus-visible:ring-lime"
+            style={{
+              top: `${h.top}%`,
+              left: `${(h.left - offsetLeft) * 2}%`,
+              width: `${h.width * 2}%`,
+              height: `${h.height}%`,
+            }}
+          >
+            <span className="sr-only">{h.label}</span>
+          </Link>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export function MuscleMapImage() {
   return (
     <div className="mx-auto w-full max-w-6xl">
-      <div className="relative overflow-hidden rounded-xl border border-border bg-black">
+      {/* Mobile: stacked front + back halves */}
+      <div className="flex flex-col gap-4 sm:hidden">
+        <HalfMap side="front" hotspots={FRONT_HOTSPOTS} />
+        <HalfMap side="back" hotspots={BACK_HOTSPOTS} />
+      </div>
+
+      {/* Tablet+ : original side-by-side image with all hotspots */}
+      <div className="relative hidden overflow-hidden rounded-xl border border-border bg-black sm:block">
         <img
           src={muscleMap}
           alt="Interactive muscle map — tap any muscle group to see exercises"
