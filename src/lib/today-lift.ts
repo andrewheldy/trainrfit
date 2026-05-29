@@ -19,16 +19,26 @@ function today(): string {
   return new Date().toISOString().slice(0, 10);
 }
 
+let cache: TodayLift | null = null;
+
 function read(): TodayLift {
-  if (typeof window === "undefined") return { date: today(), items: [] };
+  if (cache) return cache;
+  if (typeof window === "undefined") {
+    cache = { date: today(), items: [] };
+    return cache;
+  }
   try {
     const raw = window.localStorage.getItem(KEY);
-    if (!raw) return { date: today(), items: [] };
+    if (!raw) {
+      cache = { date: today(), items: [] };
+      return cache;
+    }
     const parsed = JSON.parse(raw) as TodayLift;
-    if (parsed.date !== today()) return { date: today(), items: [] };
-    return parsed;
+    cache = parsed.date !== today() ? { date: today(), items: [] } : parsed;
+    return cache;
   } catch {
-    return { date: today(), items: [] };
+    cache = { date: today(), items: [] };
+    return cache;
   }
 }
 
@@ -38,6 +48,7 @@ function emit() {
 }
 
 function write(next: TodayLift) {
+  cache = next;
   window.localStorage.setItem(KEY, JSON.stringify(next));
   emit();
 }
