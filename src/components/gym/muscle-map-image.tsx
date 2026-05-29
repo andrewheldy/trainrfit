@@ -78,23 +78,51 @@ function MapPanel({
   );
 }
 
+function MuscleLabels({ hotspots }: { hotspots: Hotspot[] }) {
+  const unique = Array.from(
+    new Map(
+      hotspots.map((h) => [h.slug, h.label.replace(/^(Upper |Lower )/, "")]),
+    ).entries(),
+  );
+  return (
+    <div className="mt-3 flex flex-wrap justify-center gap-2">
+      {unique.map(([slug, label]) => (
+        <Link
+          key={slug}
+          to="/muscles/$slug"
+          params={{ slug }}
+          className="rounded-full border border-border bg-surface px-3 py-1 text-xs font-medium text-foreground transition-colors hover:border-lime hover:bg-lime/10 hover:text-lime"
+        >
+          {label}
+        </Link>
+      ))}
+    </div>
+  );
+}
+
 export function MuscleMapImage() {
   return (
     <div className="mx-auto w-full max-w-6xl">
       {/* Mobile: stacked. Tablet+: side-by-side */}
-      <div className="flex flex-col gap-4 sm:grid sm:grid-cols-2 sm:gap-6">
-        <MapPanel
-          src={muscleMapFront}
-          alt="Front muscle map — tap any muscle group to see exercises"
-          hotspots={FRONT_HOTSPOTS}
-          side="front"
-        />
-        <MapPanel
-          src={muscleMapBack}
-          alt="Back muscle map — tap any muscle group to see exercises"
-          hotspots={BACK_HOTSPOTS}
-          side="back"
-        />
+      <div className="flex flex-col gap-6 sm:grid sm:grid-cols-2 sm:gap-8">
+        <div>
+          <MapPanel
+            src={muscleMapFront}
+            alt="Front muscle map — tap any muscle group to see exercises"
+            hotspots={FRONT_HOTSPOTS}
+            side="front"
+          />
+          <MuscleLabels hotspots={FRONT_HOTSPOTS} />
+        </div>
+        <div>
+          <MapPanel
+            src={muscleMapBack}
+            alt="Back muscle map — tap any muscle group to see exercises"
+            hotspots={BACK_HOTSPOTS}
+            side="back"
+          />
+          <MuscleLabels hotspots={BACK_HOTSPOTS} />
+        </div>
       </div>
     </div>
   );
