@@ -5,6 +5,12 @@ import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
 
+function getYouTubeId(url: string | null | undefined): string | null {
+  if (!url) return null;
+  const m = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+
 const exerciseQuery = (slug: string) =>
   queryOptions({
     queryKey: ["exercise", slug],
@@ -98,15 +104,47 @@ function ExerciseDetail() {
       </section>
 
       <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6">
-        {/* Video placeholder */}
-        <div className="flex aspect-video items-center justify-center rounded-lg border border-border bg-surface">
-          <div className="flex flex-col items-center gap-2 text-muted-foreground">
-            <div className="flex h-14 w-14 items-center justify-center rounded-full bg-elevated">
-              <Play className="h-5 w-5 fill-foreground text-foreground" />
+        {/* Form video */}
+        {(() => {
+          const id = getYouTubeId(ex.video_url);
+          if (id) {
+            return (
+              <div className="overflow-hidden rounded-lg border border-border bg-black">
+                <div className="aspect-video">
+                  <iframe
+                    src={`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`}
+                    title={`${ex.name} form video`}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="h-full w-full"
+                  />
+                </div>
+                {ex.video_url ? (
+                  <a
+                    href={ex.video_url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center justify-between border-t border-border bg-surface px-4 py-2 text-xs text-muted-foreground hover:text-lime"
+                  >
+                    <span>Watch on YouTube</span>
+                    <Play className="h-3.5 w-3.5" />
+                  </a>
+                ) : null}
+              </div>
+            );
+          }
+          return (
+            <div className="flex aspect-video items-center justify-center rounded-lg border border-border bg-surface">
+              <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                <div className="flex h-14 w-14 items-center justify-center rounded-full bg-elevated">
+                  <Play className="h-5 w-5 fill-foreground text-foreground" />
+                </div>
+                <span className="text-sm">Form video coming soon</span>
+              </div>
             </div>
-            <span className="text-sm">Form video coming soon</span>
-          </div>
-        </div>
+          );
+        })()}
 
         <div className="mt-12 grid gap-12 lg:grid-cols-2">
           <Section title="Step-by-Step">
