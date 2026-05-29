@@ -4,6 +4,7 @@ import { useState } from "react";
 import { ArrowRight, Dumbbell, Target, LineChart, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MuscleBodyExplorer } from "@/components/muscle-body";
+import { BodyMuscleMap } from "@/components/gym/body-muscle-map";
 import { ExerciseCard, type ExerciseCardData } from "@/components/exercise-card";
 
 const homeQuery = queryOptions({
