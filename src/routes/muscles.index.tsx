@@ -35,12 +35,19 @@ function MusclesIndex() {
   const { data: muscles } = useSuspenseQuery(musclesQuery);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
-      <div className="label-eyebrow">Muscle Explorer</div>
-      <h1 className="mt-2 font-display text-4xl font-bold sm:text-5xl">Know What You're Training</h1>
-      <p className="mt-3 max-w-2xl text-muted-foreground">
-        Eleven muscle groups. Pick one to see featured exercises, recommended weekly volume, and form tips.
-      </p>
+    <>
+      <section className="bg-black">
+        <div className="mx-auto max-w-7xl px-4 py-8 sm:px-6 sm:py-12">
+          <MuscleMapImage />
+        </div>
+      </section>
+      <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+        <div className="label-eyebrow">Muscle Explorer</div>
+        <h1 className="mt-2 font-display text-4xl font-bold sm:text-5xl">Know What You're Training</h1>
+        <p className="mt-3 max-w-2xl text-muted-foreground">
+          Eleven muscle groups. Pick one to see featured exercises, recommended weekly volume, and form tips.
+        </p>
+
 
       <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {muscles.map((m) => (
