@@ -96,6 +96,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Gym Lift — Train With Purpose" },
+      { name: "description", content: "Gym Lift is a modern fitness platform for discovering exercises, tracking workouts, and mastering proper form." },
+      { property: "og:description", content: "Gym Lift is a modern fitness platform for discovering exercises, tracking workouts, and mastering proper form." },
+      { name: "twitter:description", content: "Gym Lift is a modern fitness platform for discovering exercises, tracking workouts, and mastering proper form." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/45d4ba0f-f48b-41d0-8c55-7d69a67a3347/id-preview-a888b4a4--042dc9ed-a671-4a4f-bd4c-d2a9fc3b573a.lovable.app-1780086446211.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/45d4ba0f-f48b-41d0-8c55-7d69a67a3347/id-preview-a888b4a4--042dc9ed-a671-4a4f-bd4c-d2a9fc3b573a.lovable.app-1780086446211.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
