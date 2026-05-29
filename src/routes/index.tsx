@@ -3,8 +3,7 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import { ArrowRight, Dumbbell, Target, LineChart, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
-import { MuscleBodyExplorer } from "@/components/muscle-body";
-import { MuscleModel3D } from "@/components/gym/muscle-model-3d";
+import { MuscleMapImage } from "@/components/gym/muscle-map-image";
 import { ExerciseCard, type ExerciseCardData } from "@/components/exercise-card";
 
 const homeQuery = queryOptions({
@@ -59,62 +58,49 @@ export const Route = createFileRoute("/")({
 
 function HomePage() {
   const { data } = useSuspenseQuery(homeQuery);
-  const [view, setView] = useState<"front" | "back">("front");
-  const [hover, setHover] = useState<any>(null);
 
   return (
     <div>
       {/* Hero */}
       <section className="border-b border-border">
-        <div className="mx-auto max-w-7xl px-4 pb-16 pt-12 sm:px-6 sm:pt-20 lg:pt-28">
-          <div className="grid gap-12 lg:grid-cols-[1.2fr_1fr] lg:items-center">
-            <div>
-              <div className="label-eyebrow">The operating system for better lifting</div>
-              <h1 className="mt-4 font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-7xl lg:text-[5.5rem]">
-                Train With<br />
-                <span className="text-lime">Purpose.</span>
-              </h1>
-              <p className="mt-6 max-w-lg text-base text-muted-foreground sm:text-lg">
-                Discover exercises, master proper form, build workouts, and track every lift.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                <Link
-                  to="/tracker"
-                  className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
-                >
-                  Start My Lift <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  to="/exercises"
-                  className="inline-flex items-center justify-center rounded-md border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-surface"
-                >
-                  Explore Exercises
-                </Link>
-              </div>
-
-              <div className="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-6">
-                <Stat label="Muscle groups" value={String(data.muscleCount)} />
-                <Stat label="Exercises" value="24+" />
-                <Stat label="Programs" value="Build your own" small />
-              </div>
+        <div className="mx-auto max-w-7xl px-4 pb-12 pt-12 sm:px-6 sm:pt-20 lg:pt-28">
+          <div className="max-w-3xl">
+            <div className="label-eyebrow">The operating system for better lifting</div>
+            <h1 className="mt-4 font-display text-5xl font-bold leading-[1.02] tracking-tight sm:text-7xl lg:text-[5.5rem]">
+              Train With<br />
+              <span className="text-lime">Purpose.</span>
+            </h1>
+            <p className="mt-6 max-w-lg text-base text-muted-foreground sm:text-lg">
+              Discover exercises, master proper form, build workouts, and track every lift.
+            </p>
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                to="/tracker"
+                className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+              >
+                Start My Lift <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                to="/exercises"
+                className="inline-flex items-center justify-center rounded-md border border-border px-6 py-3 text-sm font-semibold text-foreground transition-colors hover:bg-surface"
+              >
+                Explore Exercises
+              </Link>
             </div>
 
-            <div className="rounded-lg border border-border bg-surface p-6">
-              <div className="label-eyebrow">Muscle Explorer</div>
-              <h2 className="mt-2 font-display text-2xl font-semibold">Know What You're Training</h2>
-              <p className="mt-1 text-sm text-muted-foreground">Tap a muscle to dive in.</p>
-              <div className="mt-6">
-                <MuscleBodyExplorer view={view} setView={setView} hover={hover} setHover={setHover} />
-              </div>
+            <div className="mt-10 grid grid-cols-3 gap-6 border-t border-border pt-6">
+              <Stat label="Muscle groups" value={String(data.muscleCount)} />
+              <Stat label="Exercises" value="24+" />
+              <Stat label="Programs" value="Build your own" small />
             </div>
           </div>
         </div>
       </section>
 
-      {/* Interactive 3D Body Muscle Map */}
-      <section className="border-b border-border">
-        <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <MuscleModel3D />
+      {/* Interactive Muscle Map */}
+      <section className="border-b border-border bg-black">
+        <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16">
+          <MuscleMapImage />
         </div>
       </section>
 
