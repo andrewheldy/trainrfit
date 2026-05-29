@@ -14,7 +14,310 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      ai_questions: {
+        Row: {
+          answer: string | null
+          created_at: string
+          id: string
+          question: string
+          user_id: string
+        }
+        Insert: {
+          answer?: string | null
+          created_at?: string
+          id?: string
+          question: string
+          user_id: string
+        }
+        Update: {
+          answer?: string | null
+          created_at?: string
+          id?: string
+          question?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      exercise_muscles: {
+        Row: {
+          exercise_id: string
+          muscle_id: string
+          role: Database["public"]["Enums"]["muscle_role"]
+        }
+        Insert: {
+          exercise_id: string
+          muscle_id: string
+          role?: Database["public"]["Enums"]["muscle_role"]
+        }
+        Update: {
+          exercise_id?: string
+          muscle_id?: string
+          role?: Database["public"]["Enums"]["muscle_role"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "exercise_muscles_exercise_id_fkey"
+            columns: ["exercise_id"]
+            isOneToOne: false
+            referencedRelation: "exercises"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "exercise_muscles_muscle_id_fkey"
+            columns: ["muscle_id"]
+            isOneToOne: false
+            referencedRelation: "muscles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      exercises: {
+        Row: {
+          common_mistakes: Json | null
+          created_at: string
+          description: string | null
+          difficulty: Database["public"]["Enums"]["difficulty_level"]
+          equipment: string | null
+          exercise_type: string | null
+          form_tips: Json | null
+          id: string
+          image_url: string | null
+          instructions: Json | null
+          name: string
+          slug: string
+          video_url: string | null
+        }
+        Insert: {
+          common_mistakes?: Json | null
+          created_at?: string
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["difficulty_level"]
+          equipment?: string | null
+          exercise_type?: string | null
+          form_tips?: Json | null
+          id?: string
+          image_url?: string | null
+          instructions?: Json | null
+          name: string
+          slug: string
+          video_url?: string | null
+        }
+        Update: {
+          common_mistakes?: Json | null
+          created_at?: string
+          description?: string | null
+          difficulty?: Database["public"]["Enums"]["difficulty_level"]
+          equipment?: string | null
+          exercise_type?: string | null
+          form_tips?: Json | null
+          id?: string
+          image_url?: string | null
+          instructions?: Json | null
+          name?: string
+          slug?: string
+          video_url?: string | null
+        }
+        Relationships: []
+      }
+      muscles: {
+        Row: {
+          display_order: number | null
+          id: string
+          image_url: string | null
+          name: string
+          overview: string | null
+          region: string
+          short_description: string | null
+          slug: string
+          weekly_sets_max: number | null
+          weekly_sets_min: number | null
+        }
+        Insert: {
+          display_order?: number | null
+          id?: string
+          image_url?: string | null
+          name: string
+          overview?: string | null
+          region: string
+          short_description?: string | null
+          slug: string
+          weekly_sets_max?: number | null
+          weekly_sets_min?: number | null
+        }
+        Update: {
+          display_order?: number | null
+          id?: string
+          image_url?: string | null
+          name?: string
+          overview?: string | null
+          region?: string
+          short_description?: string | null
+          slug?: string
+          weekly_sets_max?: number | null
+          weekly_sets_min?: number | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string
+          display_name: string | null
+          id: string
+          username: string | null
+        }
+        Insert: {
+          created_at?: string
+          display_name?: string | null
+          id: string
+          username?: string | null
+        }
+        Update: {
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          username?: string | null
+        }
+        Relationships: []
+      }
+      saved_exercises: {
+        Row: {
+          created_at: string
+          exercise_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          exercise_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          exercise_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "saved_exercises_exercise_id_fkey"
+            columns: ["exercise_id"]
+            isOneToOne: false
+            referencedRelation: "exercises"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workout_exercises: {
+        Row: {
+          created_at: string
+          exercise_id: string
+          id: string
+          notes: string | null
+          order_index: number
+          session_id: string
+          sets: Json
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          exercise_id: string
+          id?: string
+          notes?: string | null
+          order_index?: number
+          session_id: string
+          sets?: Json
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          exercise_id?: string
+          id?: string
+          notes?: string | null
+          order_index?: number
+          session_id?: string
+          sets?: Json
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workout_exercises_exercise_id_fkey"
+            columns: ["exercise_id"]
+            isOneToOne: false
+            referencedRelation: "exercises"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "workout_exercises_session_id_fkey"
+            columns: ["session_id"]
+            isOneToOne: false
+            referencedRelation: "workout_sessions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      workout_plans: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          name: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      workout_sessions: {
+        Row: {
+          completed_at: string | null
+          created_at: string
+          id: string
+          name: string | null
+          notes: string | null
+          session_date: string
+          user_id: string
+          workout_plan_id: string | null
+        }
+        Insert: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          name?: string | null
+          notes?: string | null
+          session_date?: string
+          user_id: string
+          workout_plan_id?: string | null
+        }
+        Update: {
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          name?: string | null
+          notes?: string | null
+          session_date?: string
+          user_id?: string
+          workout_plan_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "workout_sessions_workout_plan_id_fkey"
+            columns: ["workout_plan_id"]
+            isOneToOne: false
+            referencedRelation: "workout_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +326,8 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      difficulty_level: "beginner" | "intermediate" | "advanced"
+      muscle_role: "primary" | "secondary"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +454,9 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      difficulty_level: ["beginner", "intermediate", "advanced"],
+      muscle_role: ["primary", "secondary"],
+    },
   },
 } as const
