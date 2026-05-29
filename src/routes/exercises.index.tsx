@@ -51,9 +51,11 @@ function LibraryPage() {
   const [diff, setDiff] = useState<string | null>(null);
   const [muscle, setMuscle] = useState<string | null>(null);
 
-  const muscles = Array.from(new Map(
-    all.flatMap((e) => e.muscles.map((m: any) => [m.slug, m.name]))
-  ).entries()).sort((a, b) => a[1].localeCompare(b[1]));
+  const muscles: [string, string][] = Array.from(
+    new Map<string, string>(
+      all.flatMap((e) => e.muscles.map((m: any) => [m.slug as string, m.name as string]))
+    ).entries()
+  ).sort((a, b) => a[1].localeCompare(b[1]));
 
   const filtered = all.filter((e) => {
     if (q && !e.name.toLowerCase().includes(q.toLowerCase())) return false;
