@@ -81,7 +81,7 @@ const RAW: RawExercise[] = [
     equipment: ["Barbell", "Bench"],
     difficulty: "Beginner",
     exerciseType: "Compound",
-    youtubeUrl: "https://www.youtube.com/watch?v=vcBig7CRxSc",
+    youtubeUrl: "https://www.youtube.com/watch?v=rT7DgCr-3pg",
   },
   {
     name: "Dumbbell Bench Press",
@@ -92,7 +92,7 @@ const RAW: RawExercise[] = [
     equipment: ["Dumbbells", "Bench"],
     difficulty: "Beginner",
     exerciseType: "Compound",
-    youtubeUrl: "https://www.youtube.com/watch?v=VmBQ64Eqv0M",
+    youtubeUrl: "https://www.youtube.com/watch?v=VmB1G1K7v94",
   },
   {
     name: "Incline Dumbbell Press",
@@ -103,7 +103,7 @@ const RAW: RawExercise[] = [
     equipment: ["Dumbbells", "Bench"],
     difficulty: "Intermediate",
     exerciseType: "Compound",
-    youtubeUrl: "https://www.youtube.com/watch?v=0G2_XV7Vxog",
+    youtubeUrl: "https://www.youtube.com/watch?v=8iPEnn-ltC8",
   },
   {
     name: "Incline Barbell Bench Press",
@@ -114,7 +114,7 @@ const RAW: RawExercise[] = [
     equipment: ["Barbell", "Bench"],
     difficulty: "Intermediate",
     exerciseType: "Compound",
-    youtubeUrl: "https://www.youtube.com/watch?v=SrqOu550G98",
+    youtubeUrl: "https://www.youtube.com/watch?v=SrqOu55lrYU",
   },
   {
     name: "Machine Chest Press",
@@ -125,7 +125,7 @@ const RAW: RawExercise[] = [
     equipment: ["Machine"],
     difficulty: "Beginner",
     exerciseType: "Compound",
-    youtubeUrl: "https://www.youtube.com/watch?v=xZ8mY_v8_is",
+    youtubeUrl: "https://www.youtube.com/watch?v=xUm0BiZCWlQ",
   },
   {
     name: "Push-Up",
@@ -147,7 +147,7 @@ const RAW: RawExercise[] = [
     equipment: ["Bodyweight"],
     difficulty: "Advanced",
     exerciseType: "Compound",
-    youtubeUrl: "https://www.youtube.com/watch?v=NXJ06tS6fO0",
+    youtubeUrl: "https://www.youtube.com/watch?v=sM6XUdt1rm4",
   },
   {
     name: "Standing Overhead Press",
@@ -169,7 +169,7 @@ const RAW: RawExercise[] = [
     equipment: ["Dumbbells", "Bench"],
     difficulty: "Beginner",
     exerciseType: "Compound",
-    youtubeUrl: "https://www.youtube.com/watch?v=HzIiOnSAm0M",
+    youtubeUrl: "https://www.youtube.com/watch?v=qEwKCR5JCog",
   },
   {
     name: "Dumbbell Lateral Raise",
@@ -180,7 +180,7 @@ const RAW: RawExercise[] = [
     equipment: ["Dumbbells"],
     difficulty: "Beginner",
     exerciseType: "Isolation",
-    youtubeUrl: "https://www.youtube.com/watch?v=3VkDF8I_K6M",
+    youtubeUrl: "https://www.youtube.com/watch?v=3VcKaXpzqRo",
   },
   {
     name: "Cable Lateral Raise",
@@ -191,7 +191,7 @@ const RAW: RawExercise[] = [
     equipment: ["Cable Machine"],
     difficulty: "Intermediate",
     exerciseType: "Isolation",
-    youtubeUrl: "https://www.youtube.com/watch?v=PPrfUHiZ0co",
+    youtubeUrl: "https://www.youtube.com/watch?v=Z5FA9aq3L6A",
   },
   {
     name: "Cable Crossover",
@@ -202,7 +202,7 @@ const RAW: RawExercise[] = [
     equipment: ["Cable Machine"],
     difficulty: "Intermediate",
     exerciseType: "Isolation",
-    youtubeUrl: "https://www.youtube.com/watch?v=taI4XcYGpAI",
+    youtubeUrl: "https://www.youtube.com/watch?v=JUDTGZh4rhg",
   },
   {
     name: "Pec Deck Machine Flye",
@@ -213,7 +213,7 @@ const RAW: RawExercise[] = [
     equipment: ["Machine"],
     difficulty: "Beginner",
     exerciseType: "Isolation",
-    youtubeUrl: "https://www.youtube.com/watch?v=I7X8DcrK58E",
+    youtubeUrl: "https://www.youtube.com/watch?v=H4mVGHaK2f4",
   },
   {
     name: "Triceps Rope Pushdown",
@@ -248,7 +248,7 @@ const RAW: RawExercise[] = [
     equipment: ["Barbell"],
     difficulty: "Advanced",
     exerciseType: "Compound",
-    youtubeUrl: "https://www.youtube.com/watch?v=VL5KU_KcMkw",
+    youtubeUrl: "https://www.youtube.com/watch?v=hCDzSR6bW10",
   },
   {
     name: "Pull-Up",
@@ -281,7 +281,7 @@ const RAW: RawExercise[] = [
     equipment: ["Barbell"],
     difficulty: "Intermediate",
     exerciseType: "Compound",
-    youtubeUrl: "https://www.youtube.com/watch?v=6FZHJGzMyn8",
+    youtubeUrl: "https://www.youtube.com/watch?v=9efgcAjQe7E",
   },
   {
     name: "Single-Arm Dumbbell Row",
@@ -292,7 +292,7 @@ const RAW: RawExercise[] = [
     equipment: ["Dumbbells", "Bench"],
     difficulty: "Beginner",
     exerciseType: "Compound",
-    youtubeUrl: "https://www.youtube.com/watch?v=dFzG97Lfi7I",
+    youtubeUrl: "https://www.youtube.com/watch?v=pYcpY20QaE8",
   },
   {
     name: "Seated Cable Row",
@@ -314,7 +314,7 @@ const RAW: RawExercise[] = [
     equipment: ["Machine"],
     difficulty: "Beginner",
     exerciseType: "Compound",
-    youtubeUrl: "https://www.youtube.com/watch?v=j3Igk6_6H_4",
+    youtubeUrl: "https://www.youtube.com/watch?v=usyYceih-sI",
   },
   {
     name: "Face Pull",
@@ -325,7 +325,7 @@ const RAW: RawExercise[] = [
     equipment: ["Cable Machine"],
     difficulty: "Beginner",
     exerciseType: "Isolation",
-    youtubeUrl: "https://www.youtube.com/watch?v=V81cOa0YAsY",
+    youtubeUrl: "https://www.youtube.com/watch?v=eIq5CB9JfKE",
   },
   {
     name: "Dumbbell Rear Delt Flye",
@@ -347,7 +347,7 @@ const RAW: RawExercise[] = [
     equipment: ["Barbell"],
     difficulty: "Beginner",
     exerciseType: "Isolation",
-    youtubeUrl: "https://www.youtube.com/watch?v=Mv4XwW8-86g",
+    youtubeUrl: "https://www.youtube.com/watch?v=jTVbilkxSAk",
   },
   {
     name: "Straight-Arm Cable Pulldown",
@@ -358,7 +358,7 @@ const RAW: RawExercise[] = [
     equipment: ["Cable Machine"],
     difficulty: "Intermediate",
     exerciseType: "Isolation",
-    youtubeUrl: "https://www.youtube.com/watch?v=Gk6W7f8GsmU",
+    youtubeUrl: "https://www.youtube.com/watch?v=AjCCGN2tU3Q",
   },
   {
     name: "Reverse Pec Deck Flye",
@@ -369,7 +369,7 @@ const RAW: RawExercise[] = [
     equipment: ["Machine"],
     difficulty: "Beginner",
     exerciseType: "Isolation",
-    youtubeUrl: "https://www.youtube.com/watch?v=5yWa0J99Ooo",
+    youtubeUrl: "https://www.youtube.com/watch?v=MOBQn99Z1T4",
   },
 ];
 
