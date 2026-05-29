@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ArrowRight, Dumbbell, Target, LineChart, Sparkles } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { MuscleBodyExplorer } from "@/components/muscle-body";
-import { BodyMuscleMap } from "@/components/gym/body-muscle-map";
+import { MuscleModel3D } from "@/components/gym/muscle-model-3d";
 import { ExerciseCard, type ExerciseCardData } from "@/components/exercise-card";
 
 const homeQuery = queryOptions({
@@ -114,7 +114,7 @@ function HomePage() {
       {/* Interactive 3D Body Muscle Map */}
       <section className="border-b border-border">
         <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-          <BodyMuscleMap />
+          <MuscleModel3D />
         </div>
       </section>
 
