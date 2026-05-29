@@ -80,7 +80,10 @@ export function clearTodayLift() {
 function subscribe(cb: () => void) {
   listeners.add(cb);
   const storageHandler = (e: StorageEvent) => {
-    if (e.key === KEY) cb();
+    if (e.key === KEY) {
+      cache = null;
+      cb();
+    }
   };
   window.addEventListener("storage", storageHandler);
   return () => {
