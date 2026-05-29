@@ -72,5 +72,7 @@ function MusclesIndex() {
         ))}
       </div>
     </div>
+    </>
   );
+
 }
