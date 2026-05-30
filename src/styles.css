@@ -170,3 +170,9 @@
   0% { opacity: 0; transform: translate(-72%, -62%) scale(0.5); }
   100% { opacity: 1; transform: translate(-50%, -40%) scale(1); }
 }
+
+@layer components {
+  .input {
+    @apply w-full rounded-md border border-border bg-elevated/40 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-lime/50 focus:outline-none;
+  }
+}
