@@ -41,7 +41,7 @@ export const Route = createFileRoute("/coaches/$slug")({
 });
 
 function CoachProfile() {
-  const coach = Route.useLoaderData();
+  const coach = Route.useLoaderData() as Coach;
   const { has, toggle } = useFollowedCoaches();
   const followed = has(coach.slug);
 
