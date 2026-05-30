@@ -42,6 +42,7 @@ export function FeaturedCoachesSection() {
                   src={coach.photo}
                   alt={coach.name}
                   loading="lazy"
+                  style={coach.photoPosition ? { objectPosition: coach.photoPosition } : undefined}
                   className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
                 {coach.verified && (
