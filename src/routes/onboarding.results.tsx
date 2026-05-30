@@ -63,7 +63,7 @@ function ResultsPage() {
     saveProgram(program);
     saveProfile({ ...profile, onboardingComplete: true });
     toast.success("Your Week 1 plan has been added to My Lift.");
-    navigate({ to: "/my-lift" });
+    navigate({ to: "/onboarding/premium" });
   };
 
   if (!results || !program) return <div className="px-4 py-16 text-center text-muted-foreground">Loading your plan…</div>;
