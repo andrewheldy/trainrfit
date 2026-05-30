@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { useAuth } from "@/lib/auth-context";
 import logo from "@/assets/gym-lift-logo.jpeg";
 
 export function SiteFooter() {
