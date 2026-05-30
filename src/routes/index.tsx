@@ -155,6 +155,8 @@ function HomePage() {
           />
         </div>
       </section>
+
+      <FeaturedCoachesSection />
     </div>
   );
 }
