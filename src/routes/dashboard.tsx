@@ -2,6 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
+import { useProfile, useProgram, useProgress } from "@/lib/onboarding/storage";
+import { generateOnboardingResults } from "@/lib/onboarding/scoring";
+import { Sparkles, Dumbbell, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -52,6 +55,8 @@ function DashboardPage() {
     <Shell>
       <div className="label-eyebrow">My Lift</div>
       <h1 className="mt-2 font-display text-4xl font-bold sm:text-5xl">Dashboard</h1>
+
+      <OnboardingWidget />
 
       <div className="mt-8 grid grid-cols-3 gap-3">
         <StatBlock label="Sessions" value={stats.sessions} />
