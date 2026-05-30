@@ -104,7 +104,7 @@ export const COACHES: Coach[] = [
       {
         slug: "classic-physique",
         name: "Classic Physique Blueprint",
-        cover: u("photo-1583454122760-d7fc14e57c84"),
+        cover: u("photo-1534438327276-14e5300c3a48"),
         goal: "Classic Physique",
         duration: "16 Weeks",
         difficulty: "Advanced",
