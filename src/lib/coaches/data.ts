@@ -363,7 +363,7 @@ export const COACHES: Coach[] = [
       {
         slug: "injury-free-training",
         name: "Injury-Free Training",
-        cover: u("photo-1599058917212-d750089bc07e"),
+        cover: u("photo-1571019613454-1cb2f99b2d8b"),
         goal: "Strength & Longevity",
         duration: "12 Weeks",
         difficulty: "Beginner",
