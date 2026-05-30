@@ -40,6 +40,7 @@ export const DEFAULT_PROFILE: OnboardingProfile = {
   weight: { unit: "lbs", value: null },
   location: { country: "USA", state: "", city: "", otherLocation: "" },
   primaryGoal: "",
+  primaryGoals: [],
   trainingExperience: "",
   currentExerciseFrequency: "",
   realisticTrainingDays: null,
