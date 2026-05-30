@@ -6,7 +6,7 @@ import { loadProfile, saveProfile } from "@/lib/onboarding/storage";
 import type { OnboardingProfile } from "@/lib/onboarding/types";
 import { DEFAULT_PROFILE } from "@/lib/onboarding/types";
 
-export const Route = createFileRoute("/onboarding")({
+export const Route = createFileRoute("/onboarding/")({
   head: () => ({
     meta: [
       { title: "Onboarding — Gym Lift" },
