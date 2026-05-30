@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrackerRouteImport } from './routes/tracker'
+import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as MyLiftRouteImport } from './routes/my-lift'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CoachRouteImport } from './routes/coach'
@@ -25,6 +26,11 @@ import { Route as ExercisesSlugRouteImport } from './routes/exercises.$slug'
 const TrackerRoute = TrackerRouteImport.update({
   id: '/tracker',
   path: '/tracker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingRoute = OnboardingRouteImport.update({
+  id: '/onboarding',
+  path: '/onboarding',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MyLiftRoute = MyLiftRouteImport.update({
@@ -53,9 +59,9 @@ const IndexRoute = IndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any)
 const OnboardingIndexRoute = OnboardingIndexRouteImport.update({
-  id: '/onboarding/',
-  path: '/onboarding/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => OnboardingRoute,
 } as any)
 const MusclesIndexRoute = MusclesIndexRouteImport.update({
   id: '/muscles/',
@@ -89,6 +95,7 @@ export interface FileRoutesByFullPath {
   '/coach': typeof CoachRoute
   '/dashboard': typeof DashboardRoute
   '/my-lift': typeof MyLiftRoute
+  '/onboarding': typeof OnboardingRouteWithChildren
   '/tracker': typeof TrackerRoute
   '/exercises/$slug': typeof ExercisesSlugRoute
   '/muscles/$slug': typeof MusclesSlugRoute
@@ -118,6 +125,7 @@ export interface FileRoutesById {
   '/coach': typeof CoachRoute
   '/dashboard': typeof DashboardRoute
   '/my-lift': typeof MyLiftRoute
+  '/onboarding': typeof OnboardingRouteWithChildren
   '/tracker': typeof TrackerRoute
   '/exercises/$slug': typeof ExercisesSlugRoute
   '/muscles/$slug': typeof MusclesSlugRoute
@@ -134,6 +142,7 @@ export interface FileRouteTypes {
     | '/coach'
     | '/dashboard'
     | '/my-lift'
+    | '/onboarding'
     | '/tracker'
     | '/exercises/$slug'
     | '/muscles/$slug'
@@ -162,6 +171,7 @@ export interface FileRouteTypes {
     | '/coach'
     | '/dashboard'
     | '/my-lift'
+    | '/onboarding'
     | '/tracker'
     | '/exercises/$slug'
     | '/muscles/$slug'
@@ -177,12 +187,12 @@ export interface RootRouteChildren {
   CoachRoute: typeof CoachRoute
   DashboardRoute: typeof DashboardRoute
   MyLiftRoute: typeof MyLiftRoute
+  OnboardingRoute: typeof OnboardingRouteWithChildren
   TrackerRoute: typeof TrackerRoute
   ExercisesSlugRoute: typeof ExercisesSlugRoute
   MusclesSlugRoute: typeof MusclesSlugRoute
   ExercisesIndexRoute: typeof ExercisesIndexRoute
   MusclesIndexRoute: typeof MusclesIndexRoute
-  OnboardingIndexRoute: typeof OnboardingIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -192,6 +202,13 @@ declare module '@tanstack/react-router' {
       path: '/tracker'
       fullPath: '/tracker'
       preLoaderRoute: typeof TrackerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/onboarding': {
+      id: '/onboarding'
+      path: '/onboarding'
+      fullPath: '/onboarding'
+      preLoaderRoute: typeof OnboardingRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/my-lift': {
@@ -231,10 +248,10 @@ declare module '@tanstack/react-router' {
     }
     '/onboarding/': {
       id: '/onboarding/'
-      path: '/onboarding'
+      path: '/'
       fullPath: '/onboarding/'
       preLoaderRoute: typeof OnboardingIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof OnboardingRoute
     }
     '/muscles/': {
       id: '/muscles/'
@@ -274,18 +291,32 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface OnboardingRouteChildren {
+  OnboardingResultsRoute: typeof OnboardingResultsRoute
+  OnboardingIndexRoute: typeof OnboardingIndexRoute
+}
+
+const OnboardingRouteChildren: OnboardingRouteChildren = {
+  OnboardingResultsRoute: OnboardingResultsRoute,
+  OnboardingIndexRoute: OnboardingIndexRoute,
+}
+
+const OnboardingRouteWithChildren = OnboardingRoute._addFileChildren(
+  OnboardingRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
   CoachRoute: CoachRoute,
   DashboardRoute: DashboardRoute,
   MyLiftRoute: MyLiftRoute,
+  OnboardingRoute: OnboardingRouteWithChildren,
   TrackerRoute: TrackerRoute,
   ExercisesSlugRoute: ExercisesSlugRoute,
   MusclesSlugRoute: MusclesSlugRoute,
   ExercisesIndexRoute: ExercisesIndexRoute,
   MusclesIndexRoute: MusclesIndexRoute,
-  OnboardingIndexRoute: OnboardingIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
