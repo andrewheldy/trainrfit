@@ -78,7 +78,7 @@ export const COACHES: Coach[] = [
       {
         slug: "fundamental-strength",
         name: "Fundamental Strength",
-        cover: u("photo-1583454110551-21f2fa2afe61"),
+        cover: u("photo-1526506118085-60ce8714f8c5"),
         goal: "Strength",
         duration: "8 Weeks",
         difficulty: "Beginner",
