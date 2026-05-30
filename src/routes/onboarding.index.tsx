@@ -423,11 +423,22 @@ function StepPrimaryGoal({ profile, update, onContinue }: StepProps) {
     { label: "Improve General Health", emoji: "❤️" },
     { label: "Body Recomposition", emoji: "🔄" },
   ];
+  const goals = profile.primaryGoals?.length
+    ? profile.primaryGoals
+    : profile.primaryGoal
+      ? [profile.primaryGoal]
+      : [];
+  const toggle = (label: string) => {
+    const has = goals.includes(label);
+    const next = has ? goals.filter((g) => g !== label) : [...goals, label].slice(0, 3);
+    update({ primaryGoals: next, primaryGoal: next[0] ?? "" });
+  };
   return (
     <QuestionScreen
       eyebrow="Your Goal"
-      title="What’s your main goal right now?"
-      canContinue={!!profile.primaryGoal}
+      title="What are your main goals right now?"
+      helper="Pick up to 3. Your primary goal is the one you select first."
+      canContinue={goals.length > 0}
       onContinue={onContinue}
     >
       <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
@@ -435,8 +446,8 @@ function StepPrimaryGoal({ profile, update, onContinue }: StepProps) {
           <OptionCard
             key={o.label}
             label={`${o.emoji}  ${o.label}`}
-            selected={profile.primaryGoal === o.label}
-            onClick={() => update({ primaryGoal: o.label })}
+            selected={goals.includes(o.label)}
+            onClick={() => toggle(o.label)}
           />
         ))}
       </div>
