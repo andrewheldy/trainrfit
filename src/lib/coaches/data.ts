@@ -131,7 +131,7 @@ export const COACHES: Coach[] = [
     specialty: "Hybrid Athlete Training",
     bio: "Former Army Infantry Officer turned hybrid athlete. Nick proves you can be strong and run far — integrating heavy lifting with endurance training for complete physical capability.",
     photo: u("photo-1517649763962-0c623066013b"),
-    banner: u("photo-1571019614242-c5c5dee9f50b"),
+    banner: u("photo-1486218119243-13883505764c"),
     followers: 980000,
     verified: true,
     categories: ["Athletic Performance", "Strength", "Beginner Friendly"],
