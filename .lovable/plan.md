@@ -1,93 +1,109 @@
+## Gym Lift Onboarding Funnel — Build Plan
 
-# Gym Lift — Foundation Plan
+A mobile-first, 20-step onboarding flow that captures profile + training context and generates a personalized Week 1 program the user can push into "My Lift".
 
-A premium, dark-themed strength training platform. This first build establishes the brand, navigation, content surfaces, and a seeded database so future features layer in without restructuring.
+### Routes
+- `/onboarding` — step-based funnel (single route, internal `step` state, URL search param `?step=N` for back/refresh)
+- `/onboarding/results` — results + Week 1 plan + "Add Entire Program To My Lift" CTA
+- `/my-lift` — new page showing saved program by day
+- `/dashboard` — extend existing route with onboarding-aware widgets
 
-## Design system
+### Redirect logic
+- After auth (in `auth-context` post-login + after sign-up), check `localStorage.onboardingProfile.onboardingComplete`. If false/missing → `/onboarding`, else → `/dashboard`.
+- `/onboarding` index redirects to `/dashboard` if already complete (skipped if `?force=1`).
 
-- **Theme**: dark by default (no theme toggle yet).
-- **Palette**: deep charcoal background (`#0B0B0C`), elevated surface (`#141416`), border (`#1F1F22`), foreground near-white, muted gray for secondary text. Single accent: **Gym Lift lime** sampled from logo (`#B6F23D`). No gradients, no neon glow, no glassmorphism.
-- **Typography**: condensed athletic display for headlines (Bebas Neue or Archivo Black) + clean sans body (Inter). Tight tracking on display, generous tracking on small caps labels.
-- **Components**: flat cards with subtle 1px borders, sharp 4–8px radii, large editorial imagery, monospace numerals for stats/sets/reps.
-- **Logo**: place uploaded logo in `src/assets/` and use in nav + hero.
-- All tokens defined in `src/styles.css` (oklch). No raw color classes in components.
+### State & persistence
+- Single React context `OnboardingProvider` (in `/onboarding` layout) holding `profile`, `setField`, `step`, `next`, `back`.
+- Persist to `localStorage` key `gym-lift-onboarding-profile` on every change.
+- Generated program saved to `localStorage` key `gym-lift-program`.
+- Structured so a future Supabase `profiles` + `programs` table can drop in.
 
-## Backend (Lovable Cloud)
-
-Enable Cloud and create tables matching the brief:
-
-- `muscles` — id, slug, name, region (upper/lower/core), short_description, image_url
-- `exercises` — id, slug, name, description, instructions (jsonb steps), common_mistakes (jsonb), form_tips (jsonb), difficulty (beginner/intermediate/advanced), equipment, exercise_type, image_url, video_url
-- `exercise_muscles` — exercise_id, muscle_id, role (primary/secondary)
-- `workout_plans` — id, user_id, name, created_at
-- `workout_sessions` — id, workout_plan_id, user_id, date, notes
-- `workout_exercises` — id, session_id, exercise_id, order, sets (jsonb: [{reps, weight, rpe}]), notes
-- `saved_exercises` — user_id, exercise_id (favorites)
-- `ai_questions` — id, user_id, question, answer, created_at
-
-RLS: public read on `muscles`, `exercises`, `exercise_muscles`; user-owned read/write on the rest. Profiles table + trigger on `auth.users` for username. Seed ~20 exercises across the 11 muscle groups so the library feels real, not empty.
-
-## Routes (TanStack Start, file-based)
-
-```text
+### File structure
+```
 src/routes/
-  __root.tsx              top nav + footer shell
-  index.tsx               Home
-  muscles.index.tsx       Muscle grid
-  muscles.$slug.tsx       Muscle detail
-  exercises.index.tsx     Library with filters + search
-  exercises.$slug.tsx     Exercise detail
-  tracker.tsx             Workout tracker
-  dashboard.tsx           My Lift dashboard
-  coach.tsx               AI Coach (placeholder)
-  auth.tsx                Sign in / sign up
+  onboarding.tsx              # layout: header, progress bar, back button, <Outlet/> not needed — internal step switcher
+  onboarding.results.tsx      # results page
+  my-lift.tsx                 # saved program
+src/lib/onboarding/
+  types.ts                    # OnboardingProfile, Program, Workout, Exercise types
+  context.tsx                 # OnboardingProvider + useOnboarding hook
+  storage.ts                  # load/save profile + program (localStorage)
+  scoring.ts                  # generateOnboardingResults(profile)
+  program.ts                  # generateWeekOnePlan(profile, results)
+  steps.ts                    # ordered step config (id, title, component)
+src/components/onboarding/
+  OnboardingLayout.tsx
+  ProgressBar.tsx
+  QuestionScreen.tsx          # title + helper + children + Continue/Back
+  OptionCard.tsx              # single-select card button
+  MultiSelectCardGroup.tsx    # with optional max
+  HeightInput.tsx
+  WeightInput.tsx
+  LocationInput.tsx
+  LoadingPlan.tsx             # animated checklist (step 20)
+  steps/
+    StepWelcome.tsx
+    StepAge.tsx
+    StepSexAtBirth.tsx
+    StepGender.tsx
+    StepHeight.tsx
+    StepWeight.tsx
+    StepLocation.tsx
+    StepPrimaryGoal.tsx
+    StepExperience.tsx
+    StepCurrentFrequency.tsx
+    StepRealisticDays.tsx
+    StepWorkoutLength.tsx
+    StepEquipment.tsx
+    StepFocusMuscles.tsx
+    StepInjuries.tsx
+    StepFitnessLevel.tsx
+    StepBarriers.tsx
+    StepMotivation.tsx
+    StepWorkoutStyle.tsx
+    StepGenerating.tsx
+src/components/results/
+  ResultsSummaryCard.tsx
+  GoalForecastCards.tsx
+  WeekOnePlanCard.tsx
+  ExercisePlanRow.tsx         # name, muscle, sets/reps, View Form, Swap, Add to My Lift
+  AddEntireProgramButton.tsx
 ```
 
-Each route gets its own `head()` metadata. Nav links: Home, Muscles, Exercises, Tracker, Coach, Dashboard.
+### Scoring & program generation (deterministic now, AI-ready later)
+- `generateOnboardingResults(profile)` → `{ experienceLevel, consistencyScore, recommendedSplit, realisticGoalForecast: { thirtyDays, ninetyDays, sixMonths }, firstWeekTarget }` using rules from the spec.
+- `generateWeekOnePlan(profile, results)` → `Program` object matching the spec schema. Splits handled: Full Body 1x/2x/3x, PPL, Upper/Lower, PPL+UL. Exercise pool chosen from existing `src/data/exercises.ts` filtered by equipment + injury flags. Sets/reps tuned by goal (muscle 3-4×8-12, strength 3-5×3-6 main + accessory, fat loss 2-4×10-15). Beginner bias toward Bodyweight/Dumbbells/Machines.
+- Each exercise row links to `/exercises/$slug` for "View Form" and supports in-place "Swap" (picks next exercise from the same muscle/equipment pool) and "Add to My Lift" (uses existing `today-lift` helper).
 
-## Page-by-page
+### Results page
+1. Header + subtext
+2. Starting Profile card (goal, experience, split, days/wk, length, equipment chips, focus muscle chips)
+3. 3 Goal Forecast cards (30 / 90 / 6mo) — copy per primary goal
+4. "Your first target: complete X workouts this week"
+5. Week 1 Plan — collapsible day cards with `ExercisePlanRow`s
+6. Big CTA `Add Entire Program To My Lift` → saves program, sets `onboardingComplete=true`, toasts, routes to `/my-lift`
+7. Secondary `Adjust My Answers` → back to `/onboarding?step=1`
+8. Small medical disclaimer
 
-**Home** — full-bleed hero with logo + "Train With Purpose" display headline, sub, two CTAs (Explore Exercises / Start My Lift). Sections below: interactive muscle explorer (SVG body, click a region → muscle page), featured exercise cards (large image, name, target), tracker preview (mock session log styled like the real tracker), AI coach teaser card (small, supporting). No marquees, no trust-logo strips.
+### My Lift page
+- Reads `gym-lift-program` from localStorage.
+- Renders day-tabbed view: Start Workout, Mark Complete (per exercise, persisted), Swap, View Form, Edit sets/reps inline.
+- Empty state with "Start Onboarding" link if no program.
 
-**Muscles index** — grid of 11 muscle cards (image + name + exercise count).
+### Dashboard tweaks
+- New top section with: current goal pill, this week's target (X workouts), Week 1 progress bar (completed/total), buttons "Open My Lift" → `/my-lift`, "Ask AI Coach" → existing `/coach`.
 
-**Muscle detail** — header with muscle name and short overview, "Recommended weekly volume" stat block, then exercise rails grouped by Featured / Beginner / Intermediate / Advanced.
+### Visual design
+- Reuse existing tokens in `src/styles.css` (dark default, lime accent). Rounded cards (`rounded-2xl`), strong contrast, subtle gradient on the progress bar fill and on the big CTA. One-question-per-screen layout centered, max-w-md on mobile, max-w-lg on desktop.
+- Tasteful emojis only on Welcome and goal cards.
+- Brand microcopy strings ("Train smarter.", "Start realistic.", etc.) used as section eyebrows.
 
-**Exercise library** — search input + filter chips (muscle, equipment, difficulty, type). Card grid only (no table view). Loader-driven, filters reflected in URL search params.
+### Safety
+- Disclaimer block at bottom of results.
+- Language: "estimated", "recommended starting point", "based on your answers".
 
-**Exercise detail** — large hero image, muscles worked chips (primary/secondary), step-by-step list, common mistakes, form tips, video placeholder block, related exercises rail. Sticky "Add to My Lift" CTA.
+### Out of scope (deferred)
+- Supabase persistence (structure ready; current persistence is localStorage). I'll note where to swap in a `createServerFn` save call.
+- Real AI generation (logic is deterministic, labelled "personalized plan").
 
-**Tracker** — create/select a workout plan, add a session for today, add exercises (search modal pulling from library), log sets/reps/weight/notes. Inline editing, autosave.
-
-**Dashboard** — current programs, recent workouts (last 5), personal records (best weight per exercise), weekly activity (7-day bar), favorite + saved exercises.
-
-**AI Coach** — chat-style page with canned/placeholder responses (no LLM wired yet); inputs persist to `ai_questions`.
-
-**Auth** — email/password sign in + sign up; username on signup. Gate Tracker, Dashboard, AI Coach, and "Add to My Lift" behind auth (redirect to /auth).
-
-## Build order
-
-1. Design tokens + nav shell + logo + auth
-2. Cloud enable + schema + seed
-3. Home (hero, muscle explorer, library/tracker/coach previews)
-4. Muscles index + detail
-5. Exercise library + detail
-6. Add to My Lift flow
-7. Tracker
-8. Dashboard
-9. AI Coach placeholder
-
-## Technical notes
-
-- TanStack Start + TanStack Query; loaders use `ensureQueryData` + `useSuspenseQuery`.
-- Muscle explorer is a hand-built inline SVG (no third-party body-map lib) so it inherits theme tokens.
-- Images: use Unsplash-style training photography URLs in seed data for now; swap to owned assets later.
-- No payments, social, challenges, wearables in this pass.
-
-## Open questions before I build
-
-1. **Auth gating** — require sign-in to use Tracker/Dashboard/Add-to-Lift, or allow a local guest tracker that syncs after signup? I'm assuming required sign-in.
-2. **Muscle explorer style** — front-only anatomical body silhouette, or front + back toggle? I'm assuming front + back toggle.
-3. **Seed content** — OK to seed ~20 real exercises with stock training imagery so the app feels populated, or leave empty and add via admin later?
-
-If you're happy with the assumptions, say "go" and I'll build straight through. Otherwise tell me which to change.
+Ready to build — shall I proceed?
