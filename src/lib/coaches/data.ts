@@ -50,6 +50,17 @@ export type Coach = {
 
 const u = (id: string) => `https://images.unsplash.com/${id}?w=1200&q=80`;
 
+import jeffNippardPhoto from "@/assets/coaches/jeff-nippard.jpg";
+import jeremyEthierPhoto from "@/assets/coaches/jeremy-ethier.jpg";
+import mikeIsraetelPhoto from "@/assets/coaches/mike-israetel.jpg";
+import chrisBumsteadPhoto from "@/assets/coaches/chris-bumstead.jpg";
+import samSulekPhoto from "@/assets/coaches/sam-sulek.jpg";
+import davidLaidPhoto from "@/assets/coaches/david-laid.jpg";
+import nickBarePhoto from "@/assets/coaches/nick-bare.jpg";
+import athleanXPhoto from "@/assets/coaches/athlean-x.jpg";
+import krissyCelaPhoto from "@/assets/coaches/krissy-cela.jpg";
+import whitneySimmonsPhoto from "@/assets/coaches/whitney-simmons.jpg";
+
 export const COACHES: Coach[] = [
   {
     slug: "jeff-nippard",
