@@ -1,6 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { BadgeCheck, Users, Star, Layers, Instagram, Youtube, Twitter, ArrowLeft } from "lucide-react";
-import { getCoach, formatFollowers, COACHES } from "@/lib/coaches/data";
+import { getCoach, formatFollowers, COACHES, type Coach } from "@/lib/coaches/data";
 import { useFollowedCoaches } from "@/lib/coaches/storage";
 import { ProgramCard } from "@/components/coaches/program-card";
 
