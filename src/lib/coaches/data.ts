@@ -263,7 +263,7 @@ export const COACHES: Coach[] = [
       {
         slug: "science-shred",
         name: "Science-Based Shred",
-        cover: u("photo-1546483875-ad9014c88eba"),
+        cover: u("photo-1607962837359-5e7e89f86776"),
         goal: "Fat Loss",
         duration: "8 Weeks",
         difficulty: "Intermediate",
