@@ -215,7 +215,7 @@ export const COACHES: Coach[] = [
       {
         slug: "raw-mass",
         name: "Raw Mass Building",
-        cover: u("photo-1581009146145-b5ef050c2e1e"),
+        cover: u("photo-1623874514711-0f321325f318"),
         goal: "Mass Gain",
         duration: "12 Weeks",
         difficulty: "Intermediate",
