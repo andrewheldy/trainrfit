@@ -337,7 +337,7 @@ export const COACHES: Coach[] = [
       {
         slug: "lean-bulk",
         name: "Lean Bulk System",
-        cover: u("photo-1518310383802-640c2de311b2"),
+        cover: u("photo-1599058917212-d750089bc07e"),
         goal: "Muscle Growth",
         duration: "10 Weeks",
         difficulty: "Beginner",
