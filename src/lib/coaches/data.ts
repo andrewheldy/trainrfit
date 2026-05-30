@@ -152,7 +152,7 @@ export const COACHES: Coach[] = [
       {
         slug: "run-and-lift",
         name: "Run & Lift Foundation",
-        cover: u("photo-1599058917212-d750089bc07e"),
+        cover: u("photo-1538805060514-97d9cc17730c"),
         goal: "Endurance + Strength",
         duration: "8 Weeks",
         difficulty: "Beginner",
