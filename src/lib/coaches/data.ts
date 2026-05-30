@@ -50,13 +50,24 @@ export type Coach = {
 
 const u = (id: string) => `https://images.unsplash.com/${id}?w=1200&q=80`;
 
+import jeffNippardPhoto from "@/assets/coaches/jeff-nippard.jpg";
+import jeremyEthierPhoto from "@/assets/coaches/jeremy-ethier.jpg";
+import mikeIsraetelPhoto from "@/assets/coaches/mike-israetel.jpg";
+import chrisBumsteadPhoto from "@/assets/coaches/chris-bumstead.jpg";
+import samSulekPhoto from "@/assets/coaches/sam-sulek.jpg";
+import davidLaidPhoto from "@/assets/coaches/david-laid.jpg";
+import nickBarePhoto from "@/assets/coaches/nick-bare.jpg";
+import athleanXPhoto from "@/assets/coaches/athlean-x.jpg";
+import krissyCelaPhoto from "@/assets/coaches/krissy-cela.jpg";
+import whitneySimmonsPhoto from "@/assets/coaches/whitney-simmons.jpg";
+
 export const COACHES: Coach[] = [
   {
     slug: "jeff-nippard",
     name: "Jeff Nippard",
     specialty: "Science-Based Muscle Building",
     bio: "Natural pro bodybuilder and biochemistry graduate. Jeff distills the latest exercise science into practical, evidence-based training programs that deliver measurable results for beginners to advanced lifters.",
-    photo: u("photo-1581009146145-b5ef050c2e1e"),
+    photo: jeffNippardPhoto,
     banner: u("photo-1583500178690-f7fd39c44c3d"),
     followers: 2450000,
     verified: true,
@@ -93,7 +104,7 @@ export const COACHES: Coach[] = [
     name: "Chris Bumstead",
     specialty: "Classic Physique Blueprint",
     bio: "5x Mr. Olympia Classic Physique champion. CBum brings his championship-level training philosophy to structured programs focused on symmetry, proportion, and stage-ready conditioning.",
-    photo: u("photo-1567013127542-490d757e51fc"),
+    photo: chrisBumsteadPhoto,
     banner: u("photo-1583473848882-f9a5bc7fd2ee"),
     followers: 3200000,
     verified: true,
@@ -130,7 +141,7 @@ export const COACHES: Coach[] = [
     name: "Nick Bare",
     specialty: "Hybrid Athlete Training",
     bio: "Former Army Infantry Officer turned hybrid athlete. Nick proves you can be strong and run far — integrating heavy lifting with endurance training for complete physical capability.",
-    photo: u("photo-1517649763962-0c623066013b"),
+    photo: nickBarePhoto,
     banner: u("photo-1486218119243-13883505764c"),
     followers: 980000,
     verified: true,
@@ -167,7 +178,7 @@ export const COACHES: Coach[] = [
     name: "Krissy Cela",
     specialty: "Strength & Sculpt",
     bio: "Co-founder of EvolveYou and one of the most influential voices in women's strength training. Krissy makes lifting accessible, empowering, and results-driven for women at every level.",
-    photo: u("photo-1594381898411-846e7d193883"),
+    photo: krissyCelaPhoto,
     banner: u("photo-1571019614242-c5c5dee9f50b"),
     followers: 2100000,
     verified: true,
@@ -204,7 +215,7 @@ export const COACHES: Coach[] = [
     name: "Sam Sulek",
     specialty: "Mass Building",
     bio: "One of the fastest-rising voices in fitness. Sam's raw, no-nonsense approach to training has connected with millions of Gen Z lifters who want honest advice on packing on size.",
-    photo: u("photo-1550345332-09e3ac987658"),
+    photo: samSulekPhoto,
     banner: u("photo-1571902943202-507ec2618e8f"),
     followers: 3100000,
     verified: true,
@@ -241,7 +252,7 @@ export const COACHES: Coach[] = [
     name: "Jeremy Ethier",
     specialty: "Beginner Transformation",
     bio: "Kinesiologist and founder of Built With Science. Jeremy transforms beginners into knowledgeable lifters through research-backed programs with clear video instruction and tracking.",
-    photo: u("photo-1517836357463-d25dfeac3438"),
+    photo: jeremyEthierPhoto,
     banner: u("photo-1583454110551-21f2fa2afe61"),
     followers: 1850000,
     verified: true,
@@ -278,7 +289,7 @@ export const COACHES: Coach[] = [
     name: "Dr. Mike Israetel",
     specialty: "Advanced Hypertrophy",
     bio: "PhD in Sport Physiology and co-founder of Renaissance Periodization. Mike is the leading expert on training volume, recovery, and periodization for drug-free bodybuilders and strength athletes.",
-    photo: u("photo-1540497077202-7c8a3999166f"),
+    photo: mikeIsraetelPhoto,
     banner: u("photo-1599058917212-d750089bc07e"),
     followers: 890000,
     verified: true,
@@ -315,7 +326,7 @@ export const COACHES: Coach[] = [
     name: "David Laid",
     specialty: "Aesthetic Physique",
     bio: "Natural bodybuilder and aesthetic-focused trainer. David's transformation journey and dedication to proportion, symmetry, and leanness has inspired a generation of lifters.",
-    photo: u("photo-1540569014015-19a7be504e3a"),
+    photo: davidLaidPhoto,
     banner: u("photo-1574680096145-d05b474e2155"),
     followers: 2600000,
     verified: true,
@@ -352,7 +363,7 @@ export const COACHES: Coach[] = [
     name: "Athlean-X",
     specialty: "Injury-Free Training",
     bio: "Jeff Cavaliere's Athlean-X is the gold standard for biomechanically sound training. Former head physical therapist for the New York Mets, Jeff teaches you to train hard while protecting your joints and longevity.",
-    photo: u("photo-1517438322307-e67111335449"),
+    photo: athleanXPhoto,
     banner: u("photo-1517466787929-bc90951d0974"),
     followers: 3400000,
     verified: true,
@@ -389,7 +400,7 @@ export const COACHES: Coach[] = [
     name: "Whitney Simmons",
     specialty: "Women's Strength",
     bio: "One of the most recognizable names in female fitness. Whitney brings energy, positivity, and serious programming to women who want to get strong, confident, and consistent in the gym.",
-    photo: u("photo-1544005313-94ddf0286df2"),
+    photo: whitneySimmonsPhoto,
     banner: u("photo-1518459031867-a89b944bffe4"),
     followers: 1700000,
     verified: true,
