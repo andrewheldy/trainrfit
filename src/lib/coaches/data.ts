@@ -241,7 +241,7 @@ export const COACHES: Coach[] = [
     name: "Jeremy Ethier",
     specialty: "Beginner Transformation",
     bio: "Kinesiologist and founder of Built With Science. Jeremy transforms beginners into knowledgeable lifters through research-backed programs with clear video instruction and tracking.",
-    photo: u("photo-1581009146145-b5ef050c2e1e"),
+    photo: u("photo-1517836357463-d25dfeac3438"),
     banner: u("photo-1583454110551-21f2fa2afe61"),
     followers: 1850000,
     verified: true,
