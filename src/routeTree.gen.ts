@@ -24,6 +24,8 @@ import { Route as OnboardingResultsRouteImport } from './routes/onboarding.resul
 import { Route as OnboardingPremiumRouteImport } from './routes/onboarding.premium'
 import { Route as MusclesSlugRouteImport } from './routes/muscles.$slug'
 import { Route as ExercisesSlugRouteImport } from './routes/exercises.$slug'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as OnboardingPremiumRouteImport } from './routes/onboarding.premium'
 
 const TrackerRoute = TrackerRouteImport.update({
   id: '/tracker',
@@ -99,6 +101,16 @@ const ExercisesSlugRoute = ExercisesSlugRouteImport.update({
   id: '/exercises/$slug',
   path: '/exercises/$slug',
   getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OnboardingPremiumRoute = OnboardingPremiumRouteImport.update({
+  id: '/premium',
+  path: '/premium',
+  getParentRoute: () => OnboardingRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
@@ -363,13 +375,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
