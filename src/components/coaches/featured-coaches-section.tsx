@@ -3,7 +3,7 @@ import { ArrowRight, BadgeCheck, Users, Layers } from "lucide-react";
 import { COACHES, formatFollowers, getAllPrograms } from "@/lib/coaches/data";
 
 export function FeaturedCoachesSection() {
-  const featured = COACHES.slice(0, 6);
+  const featured = COACHES.slice(0, 10);
   const programs = getAllPrograms().slice(0, 6);
 
   return (
@@ -29,7 +29,7 @@ export function FeaturedCoachesSection() {
         </div>
 
         {/* Coach grid */}
-        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
+        <div className="mt-10 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
           {featured.map((coach) => (
             <Link
               key={coach.slug}
