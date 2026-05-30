@@ -326,7 +326,7 @@ export const COACHES: Coach[] = [
       {
         slug: "aesthetic-physique",
         name: "Aesthetic Physique",
-        cover: u("photo-1599058917212-d750089bc07e"),
+        cover: u("photo-1518310383802-640c2de311b2"),
         goal: "Aesthetic Proportions",
         duration: "12 Weeks",
         difficulty: "Intermediate",
