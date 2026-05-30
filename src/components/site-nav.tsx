@@ -1,8 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, LogOut } from "lucide-react";
+import { Menu, X, LogOut, Sun, Moon } from "lucide-react";
 import logo from "@/assets/gym-lift-logo.jpeg";
 import { useAuth } from "@/lib/auth-context";
+import { useTheme } from "@/lib/theme-provider";
 import { cn } from "@/lib/utils";
 
 const links = [
