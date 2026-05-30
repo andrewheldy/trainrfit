@@ -1,7 +1,9 @@
+import { Link } from "@tanstack/react-router";
 import { Bookmark, Clock, Target, Calendar } from "lucide-react";
 import { toast } from "sonner";
 import type { Coach, Program } from "@/lib/coaches/data";
 import { useSavedPrograms, useStartedPrograms } from "@/lib/coaches/storage";
+
 
 export function ProgramCard({
   program,
@@ -54,12 +56,19 @@ export function ProgramCard({
       </div>
 
       <div className="flex flex-1 flex-col p-4">
-        <h3 className="font-display text-lg font-semibold leading-tight">{program.name}</h3>
+        <Link
+          to="/coaches/$slug/programs/$programSlug"
+          params={{ slug: coach.slug, programSlug: program.slug }}
+          className="font-display text-lg font-semibold leading-tight hover:text-lime"
+        >
+          {program.name}
+        </Link>
         {showCoach && (
           <p className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
             Coach {coach.name}
           </p>
         )}
+
         <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{program.summary}</p>
 
         <dl className="mt-4 grid grid-cols-2 gap-2 text-xs">
@@ -70,21 +79,22 @@ export function ProgramCard({
         </dl>
 
         <div className="mt-4 flex gap-2">
+          <Link
+            to="/coaches/$slug/programs/$programSlug"
+            params={{ slug: coach.slug, programSlug: program.slug }}
+            className="flex-1 rounded-md bg-primary px-3 py-2 text-center text-xs font-semibold text-primary-foreground hover:opacity-90"
+          >
+            View Plan
+          </Link>
           <button
             onClick={handleStart}
             className={
               isStarted
-                ? "flex-1 rounded-md border border-lime/40 bg-lime/10 px-3 py-2 text-xs font-semibold text-lime"
-                : "flex-1 rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground hover:opacity-90"
+                ? "rounded-md border border-lime/40 bg-lime/10 px-3 py-2 text-xs font-semibold text-lime"
+                : "rounded-md border border-border px-3 py-2 text-xs font-semibold hover:bg-elevated"
             }
           >
-            {isStarted ? "In My Lift" : "Start Program"}
-          </button>
-          <button
-            onClick={() => saved.toggle(id)}
-            className="rounded-md border border-border px-3 py-2 text-xs font-semibold hover:bg-elevated"
-          >
-            {isSaved ? "Saved" : "Save"}
+            {isStarted ? "In My Lift" : "Start"}
           </button>
         </div>
       </div>
