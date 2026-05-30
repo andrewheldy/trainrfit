@@ -56,12 +56,19 @@ export function ProgramCard({
       </div>
 
       <div className="flex flex-1 flex-col p-4">
-        <h3 className="font-display text-lg font-semibold leading-tight">{program.name}</h3>
+        <Link
+          to="/coaches/$slug/programs/$programSlug"
+          params={{ slug: coach.slug, programSlug: program.slug }}
+          className="font-display text-lg font-semibold leading-tight hover:text-lime"
+        >
+          {program.name}
+        </Link>
         {showCoach && (
           <p className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
             Coach {coach.name}
           </p>
         )}
+
         <p className="mt-2 line-clamp-2 text-sm text-muted-foreground">{program.summary}</p>
 
         <dl className="mt-4 grid grid-cols-2 gap-2 text-xs">
