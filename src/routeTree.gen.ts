@@ -25,6 +25,7 @@ import { Route as OnboardingResultsRouteImport } from './routes/onboarding.resul
 import { Route as OnboardingPremiumRouteImport } from './routes/onboarding.premium'
 import { Route as MusclesSlugRouteImport } from './routes/muscles.$slug'
 import { Route as ExercisesSlugRouteImport } from './routes/exercises.$slug'
+import { Route as CoachesSlugRouteImport } from './routes/coaches.$slug'
 
 const TrackerRoute = TrackerRouteImport.update({
   id: '/tracker',
@@ -106,6 +107,11 @@ const ExercisesSlugRoute = ExercisesSlugRouteImport.update({
   path: '/exercises/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CoachesSlugRoute = CoachesSlugRouteImport.update({
+  id: '/coaches/$slug',
+  path: '/coaches/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -116,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof OnboardingRouteWithChildren
   '/pricing': typeof PricingRoute
   '/tracker': typeof TrackerRoute
+  '/coaches/$slug': typeof CoachesSlugRoute
   '/exercises/$slug': typeof ExercisesSlugRoute
   '/muscles/$slug': typeof MusclesSlugRoute
   '/onboarding/premium': typeof OnboardingPremiumRoute
@@ -133,6 +140,7 @@ export interface FileRoutesByTo {
   '/my-lift': typeof MyLiftRoute
   '/pricing': typeof PricingRoute
   '/tracker': typeof TrackerRoute
+  '/coaches/$slug': typeof CoachesSlugRoute
   '/exercises/$slug': typeof ExercisesSlugRoute
   '/muscles/$slug': typeof MusclesSlugRoute
   '/onboarding/premium': typeof OnboardingPremiumRoute
@@ -152,6 +160,7 @@ export interface FileRoutesById {
   '/onboarding': typeof OnboardingRouteWithChildren
   '/pricing': typeof PricingRoute
   '/tracker': typeof TrackerRoute
+  '/coaches/$slug': typeof CoachesSlugRoute
   '/exercises/$slug': typeof ExercisesSlugRoute
   '/muscles/$slug': typeof MusclesSlugRoute
   '/onboarding/premium': typeof OnboardingPremiumRoute
@@ -172,6 +181,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/pricing'
     | '/tracker'
+    | '/coaches/$slug'
     | '/exercises/$slug'
     | '/muscles/$slug'
     | '/onboarding/premium'
@@ -189,6 +199,7 @@ export interface FileRouteTypes {
     | '/my-lift'
     | '/pricing'
     | '/tracker'
+    | '/coaches/$slug'
     | '/exercises/$slug'
     | '/muscles/$slug'
     | '/onboarding/premium'
@@ -207,6 +218,7 @@ export interface FileRouteTypes {
     | '/onboarding'
     | '/pricing'
     | '/tracker'
+    | '/coaches/$slug'
     | '/exercises/$slug'
     | '/muscles/$slug'
     | '/onboarding/premium'
@@ -226,6 +238,7 @@ export interface RootRouteChildren {
   OnboardingRoute: typeof OnboardingRouteWithChildren
   PricingRoute: typeof PricingRoute
   TrackerRoute: typeof TrackerRoute
+  CoachesSlugRoute: typeof CoachesSlugRoute
   ExercisesSlugRoute: typeof ExercisesSlugRoute
   MusclesSlugRoute: typeof MusclesSlugRoute
   CoachesIndexRoute: typeof CoachesIndexRoute
@@ -347,6 +360,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExercisesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/coaches/$slug': {
+      id: '/coaches/$slug'
+      path: '/coaches/$slug'
+      fullPath: '/coaches/$slug'
+      preLoaderRoute: typeof CoachesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -375,6 +395,7 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingRoute: OnboardingRouteWithChildren,
   PricingRoute: PricingRoute,
   TrackerRoute: TrackerRoute,
+  CoachesSlugRoute: CoachesSlugRoute,
   ExercisesSlugRoute: ExercisesSlugRoute,
   MusclesSlugRoute: MusclesSlugRoute,
   CoachesIndexRoute: CoachesIndexRoute,
