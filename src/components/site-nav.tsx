@@ -18,6 +18,7 @@ const links = [
 export function SiteNav() {
   const [open, setOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur">
@@ -45,6 +46,13 @@ export function SiteNav() {
         </nav>
 
         <div className="hidden items-center gap-2 lg:flex">
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="rounded-md p-2 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
           {user ? (
             <button
               onClick={() => signOut()}
@@ -63,13 +71,22 @@ export function SiteNav() {
           )}
         </div>
 
-        <button
-          className="rounded-md p-2 text-foreground lg:hidden"
-          onClick={() => setOpen((v) => !v)}
-          aria-label="Toggle menu"
-        >
-          {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-        </button>
+        <div className="flex items-center gap-1 lg:hidden">
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="rounded-md p-2 text-muted-foreground transition-colors hover:text-foreground"
+          >
+            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+          </button>
+          <button
+            className="rounded-md p-2 text-foreground"
+            onClick={() => setOpen((v) => !v)}
+            aria-label="Toggle menu"
+          >
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile drawer */}
