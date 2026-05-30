@@ -300,7 +300,7 @@ export const COACHES: Coach[] = [
       {
         slug: "volume-specialist",
         name: "Volume Specialist",
-        cover: u("photo-1571902943202-507ec2618e8f"),
+        cover: u("photo-1546483875-ad9014c88eba"),
         goal: "Muscle Growth",
         duration: "12 Weeks",
         difficulty: "Intermediate",
