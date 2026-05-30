@@ -18,7 +18,7 @@ export function CoachCard({ coach, compact = false }: { coach: Coach; compact?: 
           src={coach.photo}
           alt={coach.name}
           loading="lazy"
-          className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+          className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
         />
         {coach.verified && (
           <span className="absolute right-2 top-2 inline-flex items-center gap-1 rounded-full bg-background/85 px-2 py-1 text-[10px] font-semibold uppercase tracking-wide text-lime backdrop-blur">
