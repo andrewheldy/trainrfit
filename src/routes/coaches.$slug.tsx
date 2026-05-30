@@ -68,6 +68,7 @@ function CoachProfile() {
             <img
               src={coach.photo}
               alt={coach.name}
+              style={coach.photoPosition ? { objectPosition: coach.photoPosition } : undefined}
               className="h-28 w-28 flex-shrink-0 rounded-lg border-4 border-background object-cover object-top shadow-lg sm:h-36 sm:w-36"
             />
             <div className="flex-1">
@@ -177,6 +178,7 @@ function CoachProfile() {
                     src={c.photo}
                     alt={c.name}
                     loading="lazy"
+                    style={c.photoPosition ? { objectPosition: c.photoPosition } : undefined}
                     className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
