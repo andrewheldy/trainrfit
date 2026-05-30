@@ -15,6 +15,7 @@ export interface OnboardingProfile {
   weight: { unit: WeightUnit; value: number | null };
   location: { country: "USA" | "Other" | ""; state: string; city: string; otherLocation: string };
   primaryGoal: string;
+  primaryGoals: string[];
   trainingExperience: string;
   currentExerciseFrequency: string;
   realisticTrainingDays: number | null;
