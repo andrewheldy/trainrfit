@@ -39,6 +39,7 @@ export type Coach = {
   specialty: string;
   bio: string;
   photo: string;
+  photoPosition?: string;
   banner: string;
   followers: number;
   verified: boolean;
@@ -360,7 +361,8 @@ export const COACHES: Coach[] = [
   },
   {
     slug: "athlean-x",
-    name: "Athlean-X",
+    name: "Jeff Cavaliere (Athlean-X)",
+    photoPosition: "center 25%",
     specialty: "Injury-Free Training",
     bio: "Jeff Cavaliere's Athlean-X is the gold standard for biomechanically sound training. Former head physical therapist for the New York Mets, Jeff teaches you to train hard while protecting your joints and longevity.",
     photo: athleanXPhoto,
