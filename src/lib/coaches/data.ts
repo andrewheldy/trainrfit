@@ -252,7 +252,7 @@ export const COACHES: Coach[] = [
       {
         slug: "beginner-transformation",
         name: "Beginner Transformation",
-        cover: u("photo-1605296867304-46d5465a13f1"),
+        cover: u("photo-1583454122760-d7fc14e57c84"),
         goal: "Build Muscle & Lose Fat",
         duration: "12 Weeks",
         difficulty: "Beginner",
