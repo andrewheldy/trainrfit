@@ -19,7 +19,7 @@ export const Route = createFileRoute("/coaches/$slug")({
       ],
     };
   },
-  loader: ({ params }) => {
+  loader: ({ params }): Coach => {
     const coach = getCoach(params.slug);
     if (!coach) throw notFound();
     return coach;
