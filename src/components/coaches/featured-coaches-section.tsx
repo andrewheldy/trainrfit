@@ -42,7 +42,7 @@ export function FeaturedCoachesSection() {
                   src={coach.photo}
                   alt={coach.name}
                   loading="lazy"
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                 />
                 {coach.verified && (
                   <span className="absolute right-1.5 top-1.5 inline-flex items-center gap-1 rounded-full bg-background/85 px-1.5 py-0.5 text-[9px] font-semibold uppercase text-lime backdrop-blur">
@@ -84,7 +84,7 @@ export function FeaturedCoachesSection() {
                     src={p.cover}
                     alt={p.name}
                     loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                   />
                   <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/85 to-transparent p-3">
                     <div className="text-[10px] uppercase tracking-wider text-lime">

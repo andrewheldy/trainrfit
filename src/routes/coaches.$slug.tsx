@@ -68,7 +68,7 @@ function CoachProfile() {
             <img
               src={coach.photo}
               alt={coach.name}
-              className="h-28 w-28 flex-shrink-0 rounded-lg border-4 border-background object-cover shadow-lg sm:h-36 sm:w-36"
+              className="h-28 w-28 flex-shrink-0 rounded-lg border-4 border-background object-cover object-top shadow-lg sm:h-36 sm:w-36"
             />
             <div className="flex-1">
               <div className="flex flex-wrap items-center gap-2">
@@ -177,7 +177,7 @@ function CoachProfile() {
                     src={c.photo}
                     alt={c.name}
                     loading="lazy"
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
                   />
                 </div>
                 <div className="p-3">
