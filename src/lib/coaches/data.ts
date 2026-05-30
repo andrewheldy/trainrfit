@@ -390,7 +390,7 @@ export const COACHES: Coach[] = [
     specialty: "Women's Strength",
     bio: "One of the most recognizable names in female fitness. Whitney brings energy, positivity, and serious programming to women who want to get strong, confident, and consistent in the gym.",
     photo: u("photo-1544005313-94ddf0286df2"),
-    banner: u("photo-1607962837359-5e7e89f86776"),
+    banner: u("photo-1518459031867-a89b944bffe4"),
     followers: 1700000,
     verified: true,
     categories: ["Women's Fitness", "Muscle Building", "Strength", "Beginner Friendly"],
