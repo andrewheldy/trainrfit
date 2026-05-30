@@ -29,6 +29,7 @@ import { Route as OnboardingPremiumRouteImport } from './routes/onboarding.premi
 import { Route as MusclesSlugRouteImport } from './routes/muscles.$slug'
 import { Route as ExercisesSlugRouteImport } from './routes/exercises.$slug'
 import { Route as CoachesSlugRouteImport } from './routes/coaches.$slug'
+import { Route as CoachesSlugProgramsProgramSlugRouteImport } from './routes/coaches.$slug.programs.$programSlug'
 
 const TrackerRoute = TrackerRouteImport.update({
   id: '/tracker',
@@ -130,6 +131,12 @@ const CoachesSlugRoute = CoachesSlugRouteImport.update({
   path: '/coaches/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CoachesSlugProgramsProgramSlugRoute =
+  CoachesSlugProgramsProgramSlugRouteImport.update({
+    id: '/programs/$programSlug',
+    path: '/programs/$programSlug',
+    getParentRoute: () => CoachesSlugRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -143,7 +150,7 @@ export interface FileRoutesByFullPath {
   '/onboarding': typeof OnboardingRouteWithChildren
   '/pricing': typeof PricingRoute
   '/tracker': typeof TrackerRoute
-  '/coaches/$slug': typeof CoachesSlugRoute
+  '/coaches/$slug': typeof CoachesSlugRouteWithChildren
   '/exercises/$slug': typeof ExercisesSlugRoute
   '/muscles/$slug': typeof MusclesSlugRoute
   '/onboarding/premium': typeof OnboardingPremiumRoute
@@ -152,6 +159,7 @@ export interface FileRoutesByFullPath {
   '/exercises/': typeof ExercisesIndexRoute
   '/muscles/': typeof MusclesIndexRoute
   '/onboarding/': typeof OnboardingIndexRoute
+  '/coaches/$slug/programs/$programSlug': typeof CoachesSlugProgramsProgramSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -164,7 +172,7 @@ export interface FileRoutesByTo {
   '/my-lift': typeof MyLiftRoute
   '/pricing': typeof PricingRoute
   '/tracker': typeof TrackerRoute
-  '/coaches/$slug': typeof CoachesSlugRoute
+  '/coaches/$slug': typeof CoachesSlugRouteWithChildren
   '/exercises/$slug': typeof ExercisesSlugRoute
   '/muscles/$slug': typeof MusclesSlugRoute
   '/onboarding/premium': typeof OnboardingPremiumRoute
@@ -173,6 +181,7 @@ export interface FileRoutesByTo {
   '/exercises': typeof ExercisesIndexRoute
   '/muscles': typeof MusclesIndexRoute
   '/onboarding': typeof OnboardingIndexRoute
+  '/coaches/$slug/programs/$programSlug': typeof CoachesSlugProgramsProgramSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -187,7 +196,7 @@ export interface FileRoutesById {
   '/onboarding': typeof OnboardingRouteWithChildren
   '/pricing': typeof PricingRoute
   '/tracker': typeof TrackerRoute
-  '/coaches/$slug': typeof CoachesSlugRoute
+  '/coaches/$slug': typeof CoachesSlugRouteWithChildren
   '/exercises/$slug': typeof ExercisesSlugRoute
   '/muscles/$slug': typeof MusclesSlugRoute
   '/onboarding/premium': typeof OnboardingPremiumRoute
@@ -196,6 +205,7 @@ export interface FileRoutesById {
   '/exercises/': typeof ExercisesIndexRoute
   '/muscles/': typeof MusclesIndexRoute
   '/onboarding/': typeof OnboardingIndexRoute
+  '/coaches/$slug/programs/$programSlug': typeof CoachesSlugProgramsProgramSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -220,6 +230,7 @@ export interface FileRouteTypes {
     | '/exercises/'
     | '/muscles/'
     | '/onboarding/'
+    | '/coaches/$slug/programs/$programSlug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -241,6 +252,7 @@ export interface FileRouteTypes {
     | '/exercises'
     | '/muscles'
     | '/onboarding'
+    | '/coaches/$slug/programs/$programSlug'
   id:
     | '__root__'
     | '/'
@@ -263,6 +275,7 @@ export interface FileRouteTypes {
     | '/exercises/'
     | '/muscles/'
     | '/onboarding/'
+    | '/coaches/$slug/programs/$programSlug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -277,7 +290,7 @@ export interface RootRouteChildren {
   OnboardingRoute: typeof OnboardingRouteWithChildren
   PricingRoute: typeof PricingRoute
   TrackerRoute: typeof TrackerRoute
-  CoachesSlugRoute: typeof CoachesSlugRoute
+  CoachesSlugRoute: typeof CoachesSlugRouteWithChildren
   ExercisesSlugRoute: typeof ExercisesSlugRoute
   MusclesSlugRoute: typeof MusclesSlugRoute
   CoachesIndexRoute: typeof CoachesIndexRoute
@@ -427,6 +440,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CoachesSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/coaches/$slug/programs/$programSlug': {
+      id: '/coaches/$slug/programs/$programSlug'
+      path: '/programs/$programSlug'
+      fullPath: '/coaches/$slug/programs/$programSlug'
+      preLoaderRoute: typeof CoachesSlugProgramsProgramSlugRouteImport
+      parentRoute: typeof CoachesSlugRoute
+    }
   }
 }
 
@@ -446,6 +466,18 @@ const OnboardingRouteWithChildren = OnboardingRoute._addFileChildren(
   OnboardingRouteChildren,
 )
 
+interface CoachesSlugRouteChildren {
+  CoachesSlugProgramsProgramSlugRoute: typeof CoachesSlugProgramsProgramSlugRoute
+}
+
+const CoachesSlugRouteChildren: CoachesSlugRouteChildren = {
+  CoachesSlugProgramsProgramSlugRoute: CoachesSlugProgramsProgramSlugRoute,
+}
+
+const CoachesSlugRouteWithChildren = CoachesSlugRoute._addFileChildren(
+  CoachesSlugRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminRoute: AdminRoute,
@@ -458,7 +490,7 @@ const rootRouteChildren: RootRouteChildren = {
   OnboardingRoute: OnboardingRouteWithChildren,
   PricingRoute: PricingRoute,
   TrackerRoute: TrackerRoute,
-  CoachesSlugRoute: CoachesSlugRoute,
+  CoachesSlugRoute: CoachesSlugRouteWithChildren,
   ExercisesSlugRoute: ExercisesSlugRoute,
   MusclesSlugRoute: MusclesSlugRoute,
   CoachesIndexRoute: CoachesIndexRoute,
@@ -468,3 +500,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
