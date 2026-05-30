@@ -400,7 +400,7 @@ export const COACHES: Coach[] = [
       {
         slug: "womens-strength",
         name: "Women's Strength Program",
-        cover: u("photo-1517344884509-a0c97ec11bcc"),
+        cover: u("photo-1571732154690-f6d1c3a5ed81"),
         goal: "Strength & Confidence",
         duration: "10 Weeks",
         difficulty: "Beginner",
