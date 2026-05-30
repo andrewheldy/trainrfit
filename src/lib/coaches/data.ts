@@ -115,7 +115,7 @@ export const COACHES: Coach[] = [
       {
         slug: "off-season-mass",
         name: "Off-Season Mass Builder",
-        cover: u("photo-1571902943202-507ec2618e8f"),
+        cover: u("photo-1605296867304-46d5465a13f1"),
         goal: "Muscle Growth",
         duration: "12 Weeks",
         difficulty: "Intermediate",
