@@ -226,7 +226,7 @@ export const COACHES: Coach[] = [
       {
         slug: "bulk-basics",
         name: "Bulk Basics",
-        cover: u("photo-1583454110551-21f2fa2afe61"),
+        cover: u("photo-1532384748853-8f54a8f476e2"),
         goal: "Muscle Growth",
         duration: "8 Weeks",
         difficulty: "Beginner",
