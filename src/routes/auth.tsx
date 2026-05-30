@@ -3,6 +3,8 @@ import { useEffect, useState, type FormEvent } from "react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
+import { loadProfile } from "@/lib/onboarding/storage";
+
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -24,7 +26,10 @@ function AuthPage() {
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
-    if (user) navigate({ to: "/dashboard", replace: true });
+    if (user) {
+      const p = loadProfile();
+      navigate({ to: p.onboardingComplete ? "/dashboard" : "/onboarding", replace: true });
+    }
   }, [user, navigate]);
 
   async function submit(e: FormEvent) {

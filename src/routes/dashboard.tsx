@@ -2,6 +2,9 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
+import { useProfile, useProgram, useProgress } from "@/lib/onboarding/storage";
+import { generateOnboardingResults } from "@/lib/onboarding/scoring";
+import { Sparkles, Dumbbell, MessageCircle } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({
@@ -52,6 +55,8 @@ function DashboardPage() {
     <Shell>
       <div className="label-eyebrow">My Lift</div>
       <h1 className="mt-2 font-display text-4xl font-bold sm:text-5xl">Dashboard</h1>
+
+      <OnboardingWidget />
 
       <div className="mt-8 grid grid-cols-3 gap-3">
         <StatBlock label="Sessions" value={stats.sessions} />
@@ -106,6 +111,79 @@ function DashboardPage() {
 function Shell({ children }: { children: React.ReactNode }) {
   return <div className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-16">{children}</div>;
 }
+
+function OnboardingWidget() {
+  const profile = useProfile();
+  const program = useProgram();
+  const progress = useProgress();
+
+  if (!profile.onboardingComplete && !program) {
+    return (
+      <div className="mt-6 rounded-2xl border border-lime/30 bg-gradient-to-br from-lime/10 to-transparent p-5">
+        <div className="flex items-start gap-3">
+          <Sparkles className="mt-0.5 h-5 w-5 text-lime" />
+          <div className="flex-1">
+            <div className="font-display text-lg font-bold">Build your starting plan</div>
+            <p className="mt-1 text-sm text-muted-foreground">
+              Answer a few quick questions and get a personalized Week 1 plan.
+            </p>
+            <Link
+              to="/onboarding"
+              className="mt-3 inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-xs font-semibold text-primary-foreground"
+            >
+              Start Assessment
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!program) return null;
+  const results = generateOnboardingResults(profile);
+  const total = program.workouts.reduce((s, w) => s + w.exercises.length, 0);
+  const done = Object.values(progress).filter(Boolean).length;
+
+  return (
+    <div className="mt-6 rounded-2xl border border-border bg-gradient-to-br from-surface to-elevated p-5">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="rounded-full border border-lime/40 bg-lime/10 px-2.5 py-1 text-xs text-lime">
+          {profile.primaryGoal || "Your Goal"}
+        </span>
+        <span className="rounded-full border border-border bg-background/40 px-2.5 py-1 text-xs text-muted-foreground">
+          {program.recommendedSplit}
+        </span>
+      </div>
+      <div className="mt-3 font-display text-lg font-bold">
+        Your first target: complete {results.firstWeekTarget} workouts this week.
+      </div>
+      <div className="mt-3">
+        <div className="flex items-center justify-between text-xs">
+          <span className="text-muted-foreground">Week 1 progress</span>
+          <span className="font-mono font-bold text-lime">{done}/{total}</span>
+        </div>
+        <div className="mt-1 h-1.5 w-full overflow-hidden rounded-full bg-elevated">
+          <div className="h-full bg-gradient-to-r from-lime to-primary" style={{ width: `${total ? (done / total) * 100 : 0}%` }} />
+        </div>
+      </div>
+      <div className="mt-4 flex flex-wrap gap-2">
+        <Link
+          to="/my-lift"
+          className="inline-flex items-center gap-1.5 rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground"
+        >
+          <Dumbbell className="h-3.5 w-3.5" /> Open My Lift
+        </Link>
+        <Link
+          to="/coach"
+          className="inline-flex items-center gap-1.5 rounded-md border border-border bg-surface px-3 py-2 text-xs font-semibold hover:bg-elevated"
+        >
+          <MessageCircle className="h-3.5 w-3.5" /> Ask AI Coach
+        </Link>
+      </div>
+    </div>
+  );
+}
+
 
 function StatBlock({ label, value, accent }: { label: string; value: number; accent?: boolean }) {
   return (
