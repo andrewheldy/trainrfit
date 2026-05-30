@@ -141,7 +141,7 @@ export const COACHES: Coach[] = [
       {
         slug: "hybrid-athlete",
         name: "Hybrid Athlete Training",
-        cover: u("photo-1574680096145-d05b474e2155"),
+        cover: u("photo-1530143584546-02191bc84eb5"),
         goal: "Hybrid Performance",
         duration: "12 Weeks",
         difficulty: "Intermediate",
