@@ -5,6 +5,7 @@ import { ArrowRight, Dumbbell, Target, LineChart, Sparkles } from "lucide-react"
 import { supabase } from "@/integrations/supabase/client";
 import { MuscleMapImage } from "@/components/gym/muscle-map-image";
 import { ExerciseCard, type ExerciseCardData } from "@/components/exercise-card";
+import { FeaturedCoachesSection } from "@/components/coaches/featured-coaches-section";
 
 const homeQuery = queryOptions({
   queryKey: ["home-data"],
@@ -154,6 +155,8 @@ function HomePage() {
           />
         </div>
       </section>
+
+      <FeaturedCoachesSection />
     </div>
   );
 }
