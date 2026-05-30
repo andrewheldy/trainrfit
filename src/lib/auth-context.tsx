@@ -36,12 +36,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => subscription.unsubscribe();
   }, []);
 
+  const user = session?.user ?? null;
+  const isAdmin =
+    user?.app_metadata?.role === "admin" ||
+    user?.user_metadata?.role === "admin" ||
+    false;
+
   return (
     <AuthContext.Provider
       value={{
-        user: session?.user ?? null,
+        user,
         session,
         loading,
+        isAdmin,
         signOut: async () => {
           await supabase.auth.signOut();
         },
