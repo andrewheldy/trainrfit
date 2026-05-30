@@ -48,7 +48,11 @@
 
 :root {
   --radius: 0.5rem;
+  color-scheme: dark;
+}
 
+.dark,
+:root:not(.light) {
   /* Obsidian Black #0B0D0F */
   --background: oklch(0.145 0.005 240);
   /* Ice White #F5F7FA */
@@ -87,6 +91,43 @@
   --ring: oklch(0.92 0.22 125);
 
   color-scheme: dark;
+}
+
+.light {
+  /* Light theme — Cloud White base */
+  --background: oklch(0.97 0.005 240);
+  --foreground: oklch(0.18 0.01 240);
+
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.18 0.01 240);
+  --surface: oklch(0.95 0.005 240);
+  --elevated: oklch(0.93 0.005 240);
+
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.18 0.01 240);
+
+  /* Electric Lime — slightly desaturated for light bg */
+  --lime: oklch(0.82 0.22 125);
+  --primary: oklch(0.75 0.2 125);
+  --primary-foreground: oklch(0.97 0.005 240);
+
+  --secondary: oklch(0.93 0.005 240);
+  --secondary-foreground: oklch(0.18 0.01 240);
+
+  --muted: oklch(0.92 0.005 240);
+  --muted-foreground: oklch(0.55 0.01 240);
+
+  --accent: oklch(0.75 0.2 125);
+  --accent-foreground: oklch(0.97 0.005 240);
+
+  --destructive: oklch(0.55 0.2 25);
+  --destructive-foreground: oklch(0.97 0.005 240);
+
+  --border: oklch(0 0 0 / 10%);
+  --input: oklch(0 0 0 / 12%);
+  --ring: oklch(0.75 0.2 125);
+
+  color-scheme: light;
 }
 
 @layer base {
