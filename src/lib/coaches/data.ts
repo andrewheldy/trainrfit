@@ -289,7 +289,7 @@ export const COACHES: Coach[] = [
       {
         slug: "advanced-hypertrophy",
         name: "Advanced Hypertrophy",
-        cover: u("photo-1583454122760-d7fc14e57c84"),
+        cover: u("photo-1517963879433-6ad2b056fdcd"),
         goal: "Maximum Muscle Growth",
         duration: "16 Weeks",
         difficulty: "Advanced",
