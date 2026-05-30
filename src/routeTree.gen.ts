@@ -15,6 +15,7 @@ import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as MyLiftRouteImport } from './routes/my-lift'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CoachRouteImport } from './routes/coach'
+import { Route as BecomeACoachRouteImport } from './routes/become-a-coach'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as OnboardingIndexRouteImport } from './routes/onboarding.index'
@@ -55,6 +56,11 @@ const DashboardRoute = DashboardRouteImport.update({
 const CoachRoute = CoachRouteImport.update({
   id: '/coach',
   path: '/coach',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BecomeACoachRoute = BecomeACoachRouteImport.update({
+  id: '/become-a-coach',
+  path: '/become-a-coach',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthRoute = AuthRouteImport.update({
@@ -116,6 +122,7 @@ const CoachesSlugRoute = CoachesSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/become-a-coach': typeof BecomeACoachRoute
   '/coach': typeof CoachRoute
   '/dashboard': typeof DashboardRoute
   '/my-lift': typeof MyLiftRoute
@@ -135,6 +142,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/become-a-coach': typeof BecomeACoachRoute
   '/coach': typeof CoachRoute
   '/dashboard': typeof DashboardRoute
   '/my-lift': typeof MyLiftRoute
@@ -154,6 +162,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/auth': typeof AuthRoute
+  '/become-a-coach': typeof BecomeACoachRoute
   '/coach': typeof CoachRoute
   '/dashboard': typeof DashboardRoute
   '/my-lift': typeof MyLiftRoute
@@ -175,6 +184,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/auth'
+    | '/become-a-coach'
     | '/coach'
     | '/dashboard'
     | '/my-lift'
@@ -194,6 +204,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/auth'
+    | '/become-a-coach'
     | '/coach'
     | '/dashboard'
     | '/my-lift'
@@ -212,6 +223,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/auth'
+    | '/become-a-coach'
     | '/coach'
     | '/dashboard'
     | '/my-lift'
@@ -232,6 +244,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthRoute: typeof AuthRoute
+  BecomeACoachRoute: typeof BecomeACoachRoute
   CoachRoute: typeof CoachRoute
   DashboardRoute: typeof DashboardRoute
   MyLiftRoute: typeof MyLiftRoute
@@ -288,6 +301,13 @@ declare module '@tanstack/react-router' {
       path: '/coach'
       fullPath: '/coach'
       preLoaderRoute: typeof CoachRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/become-a-coach': {
+      id: '/become-a-coach'
+      path: '/become-a-coach'
+      fullPath: '/become-a-coach'
+      preLoaderRoute: typeof BecomeACoachRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth': {
@@ -389,6 +409,7 @@ const OnboardingRouteWithChildren = OnboardingRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthRoute: AuthRoute,
+  BecomeACoachRoute: BecomeACoachRoute,
   CoachRoute: CoachRoute,
   DashboardRoute: DashboardRoute,
   MyLiftRoute: MyLiftRoute,
@@ -405,3 +426,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
