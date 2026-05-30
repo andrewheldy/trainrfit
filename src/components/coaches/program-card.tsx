@@ -79,21 +79,22 @@ export function ProgramCard({
         </dl>
 
         <div className="mt-4 flex gap-2">
+          <Link
+            to="/coaches/$slug/programs/$programSlug"
+            params={{ slug: coach.slug, programSlug: program.slug }}
+            className="flex-1 rounded-md bg-primary px-3 py-2 text-center text-xs font-semibold text-primary-foreground hover:opacity-90"
+          >
+            View Plan
+          </Link>
           <button
             onClick={handleStart}
             className={
               isStarted
-                ? "flex-1 rounded-md border border-lime/40 bg-lime/10 px-3 py-2 text-xs font-semibold text-lime"
-                : "flex-1 rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground hover:opacity-90"
+                ? "rounded-md border border-lime/40 bg-lime/10 px-3 py-2 text-xs font-semibold text-lime"
+                : "rounded-md border border-border px-3 py-2 text-xs font-semibold hover:bg-elevated"
             }
           >
-            {isStarted ? "In My Lift" : "Start Program"}
-          </button>
-          <button
-            onClick={() => saved.toggle(id)}
-            className="rounded-md border border-border px-3 py-2 text-xs font-semibold hover:bg-elevated"
-          >
-            {isSaved ? "Saved" : "Save"}
+            {isStarted ? "In My Lift" : "Start"}
           </button>
         </div>
       </div>
