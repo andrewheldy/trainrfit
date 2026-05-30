@@ -374,7 +374,7 @@ export const COACHES: Coach[] = [
       {
         slug: "total-beast",
         name: "Total Beast",
-        cover: u("photo-1571019614242-c5c5dee9f50b"),
+        cover: u("photo-1517344884509-a0c97ec11bcc"),
         goal: "Strength & Athleticism",
         duration: "12 Weeks",
         difficulty: "Intermediate",
