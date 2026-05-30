@@ -67,7 +67,7 @@ export const COACHES: Coach[] = [
       {
         slug: "science-based-muscle",
         name: "Science-Based Muscle Building",
-        cover: u("photo-1581009146145-b5ef050c2e1e"),
+        cover: u("photo-1532029837206-abbe2b7620e3"),
         goal: "Muscle Growth",
         duration: "12 Weeks",
         difficulty: "Intermediate",
