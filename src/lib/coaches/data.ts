@@ -411,7 +411,7 @@ export const COACHES: Coach[] = [
       {
         slug: "itss-upper-lower",
         name: "It's a Beautiful Day to Be Alive",
-        cover: u("photo-1518611012118-696072aa579a"),
+        cover: u("photo-1571019648919-15b6b8e3e2e7"),
         goal: "Full-Body Strength",
         duration: "8 Weeks",
         difficulty: "Intermediate",
