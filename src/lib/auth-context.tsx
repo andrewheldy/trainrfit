@@ -37,10 +37,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const user = session?.user ?? null;
-  const isAdmin =
-    user?.app_metadata?.role === "admin" ||
-    user?.user_metadata?.role === "admin" ||
-    false;
+  const ADMIN_EMAILS = ["andrewheldy.ai@gmail.com"];
+  const isAdmin = !!user?.email && ADMIN_EMAILS.includes(user.email.toLowerCase());
 
   return (
     <AuthContext.Provider
