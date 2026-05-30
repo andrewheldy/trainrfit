@@ -1,9 +1,15 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
-import { Plus, Trash2 } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Plus, Trash2, Save } from "lucide-react";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/lib/auth-context";
+import {
+  useTodayLift,
+  removeFromTodayLift,
+  clearTodayLift,
+} from "@/lib/today-lift";
+import { exercises as staticExercises } from "@/data/exercises";
 
 export const Route = createFileRoute("/tracker")({
   head: () => ({
@@ -33,38 +39,29 @@ interface Session {
 function TrackerPage() {
   const { user, loading } = useAuth();
   const [sessions, setSessions] = useState<Session[]>([]);
-  const [allExercises, setAllExercises] = useState<{ id: string; name: string }[]>([]);
+  const [allExercises, setAllExercises] = useState<{ id: string; name: string; slug: string }[]>([]);
+
+  async function refresh() {
+    if (!user) return;
+    const [s, ex] = await Promise.all([
+      supabase
+        .from("workout_sessions")
+        .select("id, name, session_date, workout_exercises(id, exercise_id, sets, notes, exercises(name, slug))")
+        .eq("user_id", user.id)
+        .order("session_date", { ascending: false })
+        .limit(10),
+      supabase.from("exercises").select("id, name, slug").order("name"),
+    ]);
+    setSessions((s.data as any) ?? []);
+    setAllExercises(ex.data ?? []);
+  }
 
   useEffect(() => {
-    if (!user) return;
-    (async () => {
-      const [s, ex] = await Promise.all([
-        supabase
-          .from("workout_sessions")
-          .select("id, name, session_date, workout_exercises(id, exercise_id, sets, notes, exercises(name, slug))")
-          .eq("user_id", user.id)
-          .order("session_date", { ascending: false })
-          .limit(10),
-        supabase.from("exercises").select("id, name").order("name"),
-      ]);
-      setSessions((s.data as any) ?? []);
-      setAllExercises(ex.data ?? []);
-    })();
+    if (user) refresh();
   }, [user]);
 
   if (loading) return <PageShell><p className="text-muted-foreground">Loading…</p></PageShell>;
   if (!user) return <SignInGate title="Track Every Set" />;
-
-  async function createSession() {
-    if (!user) return;
-    const { data, error } = await supabase
-      .from("workout_sessions")
-      .insert({ user_id: user.id, name: `Lift · ${new Date().toLocaleDateString()}` })
-      .select("id, name, session_date, workout_exercises(id, exercise_id, sets, notes, exercises(name, slug))")
-      .single();
-    if (error) return toast.error(error.message);
-    setSessions((prev) => [data as any, ...prev]);
-  }
 
   async function addExercise(sessionId: string, exerciseId: string) {
     if (!user) return;
@@ -114,37 +111,180 @@ function TrackerPage() {
 
   return (
     <PageShell>
-      <div className="flex items-end justify-between gap-4">
-        <div>
-          <div className="label-eyebrow">Workout Tracker</div>
-          <h1 className="mt-2 font-display text-4xl font-bold sm:text-5xl">Today's Lift</h1>
-        </div>
-        <button
-          onClick={createSession}
-          className="inline-flex items-center gap-2 rounded-md bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground"
-        >
-          <Plus className="h-4 w-4" /> New Session
-        </button>
+      <div>
+        <div className="label-eyebrow">Workout Tracker</div>
+        <h1 className="mt-2 font-display text-4xl font-bold sm:text-5xl">Today's Lift</h1>
+        <p className="mt-2 text-sm text-muted-foreground">
+          Build today's lift from the exercise library, name it, then save it to your history.
+        </p>
       </div>
 
-      <div className="mt-10 space-y-6">
-        {sessions.length === 0 ? (
-          <EmptyState title="No workouts yet." body="Start your first lift and build from there." />
-        ) : null}
+      <TodayLiftBuilder
+        userId={user.id}
+        allExercises={allExercises}
+        onSaved={async () => {
+          await refresh();
+        }}
+      />
 
-        {sessions.map((s) => (
-          <SessionCard
-            key={s.id}
-            session={s}
-            allExercises={allExercises}
-            onAdd={(eid) => addExercise(s.id, eid)}
-            onUpdate={updateSets}
-            onRemoveExercise={removeExercise}
-            onRemoveSession={() => removeSession(s.id)}
-          />
-        ))}
+      <div className="mt-12">
+        <h2 className="font-display text-2xl font-bold">Saved Sessions</h2>
+        <div className="mt-4 space-y-6">
+          {sessions.length === 0 ? (
+            <EmptyState title="No saved sessions yet." body="Save today's lift to start building your history." />
+          ) : null}
+
+          {sessions.map((s) => (
+            <SessionCard
+              key={s.id}
+              session={s}
+              allExercises={allExercises}
+              onAdd={(eid) => addExercise(s.id, eid)}
+              onUpdate={updateSets}
+              onRemoveExercise={removeExercise}
+              onRemoveSession={() => removeSession(s.id)}
+            />
+          ))}
+        </div>
       </div>
     </PageShell>
+  );
+}
+
+function TodayLiftBuilder({
+  userId,
+  allExercises,
+  onSaved,
+}: {
+  userId: string;
+  allExercises: { id: string; name: string; slug: string }[];
+  onSaved: () => void | Promise<void>;
+}) {
+  const lift = useTodayLift();
+  const [name, setName] = useState("");
+  const [saving, setSaving] = useState(false);
+
+  const items = useMemo(() => {
+    return lift.items.map((i) => {
+      const dbMatch = allExercises.find((e) => e.slug === i.slug);
+      const staticMatch = staticExercises.find((e) => e.slug === i.slug);
+      return {
+        slug: i.slug,
+        name: dbMatch?.name ?? staticMatch?.name ?? i.slug,
+        exerciseId: dbMatch?.id ?? null,
+      };
+    });
+  }, [lift.items, allExercises]);
+
+  async function save() {
+    if (items.length === 0) return;
+    const missing = items.filter((i) => !i.exerciseId);
+    if (missing.length > 0) {
+      return toast.error("Some exercises aren't in the library yet", {
+        description: missing.map((m) => m.name).join(", "),
+      });
+    }
+    setSaving(true);
+    try {
+      const { data: session, error: sErr } = await supabase
+        .from("workout_sessions")
+        .insert({
+          user_id: userId,
+          name: name.trim() || `Lift · ${new Date().toLocaleDateString()}`,
+        })
+        .select("id")
+        .single();
+      if (sErr || !session) throw sErr ?? new Error("Failed to create session");
+
+      const rows = items.map((it, idx) => ({
+        session_id: session.id,
+        exercise_id: it.exerciseId!,
+        user_id: userId,
+        order_index: idx,
+        sets: [{ reps: 0, weight: 0 }],
+      }));
+      const { error: weErr } = await supabase.from("workout_exercises").insert(rows);
+      if (weErr) throw weErr;
+
+      toast.success("Lift saved", { description: `${items.length} exercise${items.length === 1 ? "" : "s"}` });
+      clearTodayLift();
+      setName("");
+      await onSaved();
+    } catch (e: any) {
+      toast.error(e?.message ?? "Failed to save lift");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  return (
+    <div className="mt-8 rounded-lg border border-lime/30 bg-surface p-5 sm:p-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <div className="label-eyebrow text-lime">Pending</div>
+          <h2 className="mt-1 font-display text-xl font-semibold">
+            Today's Lift · {items.length} exercise{items.length === 1 ? "" : "s"}
+          </h2>
+        </div>
+        {items.length > 0 ? (
+          <button
+            onClick={() => clearTodayLift()}
+            className="text-xs text-muted-foreground hover:text-destructive"
+          >
+            Clear
+          </button>
+        ) : null}
+      </div>
+
+      {items.length === 0 ? (
+        <p className="mt-4 text-sm text-muted-foreground">
+          Head to the{" "}
+          <Link to="/exercises" className="font-semibold text-lime hover:underline">
+            Exercise Library
+          </Link>{" "}
+          and tap "Add to My Lift" on any movement.
+        </p>
+      ) : (
+        <>
+          <ul className="mt-4 divide-y divide-border rounded-md border border-border bg-background">
+            {items.map((it) => (
+              <li key={it.slug} className="flex items-center justify-between px-4 py-3">
+                <Link
+                  to="/exercises/$slug"
+                  params={{ slug: it.slug }}
+                  className="text-sm font-medium hover:text-lime"
+                >
+                  {it.name}
+                </Link>
+                <button
+                  onClick={() => removeFromTodayLift(it.slug)}
+                  className="text-muted-foreground hover:text-destructive"
+                  aria-label={`Remove ${it.name}`}
+                >
+                  <Trash2 className="h-4 w-4" />
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+            <input
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Name this lift (e.g. Push Day A)"
+              className="flex-1 rounded-md border border-border bg-background px-3 py-2.5 text-sm outline-none focus:border-lime/50"
+            />
+            <button
+              onClick={save}
+              disabled={saving}
+              className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground disabled:opacity-40"
+            >
+              <Save className="h-4 w-4" /> {saving ? "Saving…" : "Save Lift"}
+            </button>
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 
@@ -152,7 +292,7 @@ function SessionCard({
   session, allExercises, onAdd, onUpdate, onRemoveExercise, onRemoveSession,
 }: {
   session: Session;
-  allExercises: { id: string; name: string }[];
+  allExercises: { id: string; name: string; slug: string }[];
   onAdd: (id: string) => void;
   onUpdate: (weId: string, sets: { reps: number; weight: number }[]) => void;
   onRemoveExercise: (id: string) => void;
