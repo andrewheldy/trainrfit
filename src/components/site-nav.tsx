@@ -15,7 +15,6 @@ const links = [
   { to: "/coach", label: "AI Coach" },
   { to: "/dashboard", label: "Dashboard" },
   { to: "/creator-dashboard", label: "Creator Studio" },
-  { to: "/admin", label: "Admin" },
 ] as const;
 
 export function SiteNav() {

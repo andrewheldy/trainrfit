@@ -6,6 +6,7 @@ interface AuthState {
   user: User | null;
   session: Session | null;
   loading: boolean;
+  isAdmin: boolean;
   signOut: () => Promise<void>;
 }
 
@@ -13,6 +14,7 @@ const AuthContext = createContext<AuthState>({
   user: null,
   session: null,
   loading: true,
+  isAdmin: false,
   signOut: async () => {},
 });
 
@@ -34,12 +36,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     return () => subscription.unsubscribe();
   }, []);
 
+  const user = session?.user ?? null;
+  const isAdmin =
+    user?.app_metadata?.role === "admin" ||
+    user?.user_metadata?.role === "admin" ||
+    false;
+
   return (
     <AuthContext.Provider
       value={{
-        user: session?.user ?? null,
+        user,
         session,
         loading,
+        isAdmin,
         signOut: async () => {
           await supabase.auth.signOut();
         },

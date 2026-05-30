@@ -1,7 +1,10 @@
 import { Link } from "@tanstack/react-router";
+import { useAuth } from "@/lib/auth-context";
 import logo from "@/assets/gym-lift-logo.jpeg";
 
 export function SiteFooter() {
+  const { isAdmin } = useAuth();
+
   return (
     <footer className="mt-24 border-t border-border bg-background">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
@@ -27,6 +30,7 @@ export function SiteFooter() {
           <FLink to="/dashboard">Dashboard</FLink>
           <FLink to="/coach">AI Coach</FLink>
           <FLink to="/auth">Sign in</FLink>
+          {isAdmin && <FLink to="/admin">Admin</FLink>}
         </FooterCol>
 
         <FooterCol title="Brand">
