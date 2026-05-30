@@ -16,6 +16,7 @@ import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as CoachRouteImport } from './routes/coach'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OnboardingIndexRouteImport } from './routes/onboarding.index'
 import { Route as MusclesIndexRouteImport } from './routes/muscles.index'
 import { Route as ExercisesIndexRouteImport } from './routes/exercises.index'
 import { Route as OnboardingResultsRouteImport } from './routes/onboarding.results'
@@ -57,6 +58,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OnboardingIndexRoute = OnboardingIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => OnboardingRoute,
+} as any)
 const MusclesIndexRoute = MusclesIndexRouteImport.update({
   id: '/muscles/',
   path: '/muscles/',
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/onboarding/results': typeof OnboardingResultsRoute
   '/exercises/': typeof ExercisesIndexRoute
   '/muscles/': typeof MusclesIndexRoute
+  '/onboarding/': typeof OnboardingIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -103,13 +110,13 @@ export interface FileRoutesByTo {
   '/coach': typeof CoachRoute
   '/dashboard': typeof DashboardRoute
   '/my-lift': typeof MyLiftRoute
-  '/onboarding': typeof OnboardingRouteWithChildren
   '/tracker': typeof TrackerRoute
   '/exercises/$slug': typeof ExercisesSlugRoute
   '/muscles/$slug': typeof MusclesSlugRoute
   '/onboarding/results': typeof OnboardingResultsRoute
   '/exercises': typeof ExercisesIndexRoute
   '/muscles': typeof MusclesIndexRoute
+  '/onboarding': typeof OnboardingIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -125,6 +132,7 @@ export interface FileRoutesById {
   '/onboarding/results': typeof OnboardingResultsRoute
   '/exercises/': typeof ExercisesIndexRoute
   '/muscles/': typeof MusclesIndexRoute
+  '/onboarding/': typeof OnboardingIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +149,7 @@ export interface FileRouteTypes {
     | '/onboarding/results'
     | '/exercises/'
     | '/muscles/'
+    | '/onboarding/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -148,13 +157,13 @@ export interface FileRouteTypes {
     | '/coach'
     | '/dashboard'
     | '/my-lift'
-    | '/onboarding'
     | '/tracker'
     | '/exercises/$slug'
     | '/muscles/$slug'
     | '/onboarding/results'
     | '/exercises'
     | '/muscles'
+    | '/onboarding'
   id:
     | '__root__'
     | '/'
@@ -169,6 +178,7 @@ export interface FileRouteTypes {
     | '/onboarding/results'
     | '/exercises/'
     | '/muscles/'
+    | '/onboarding/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -236,6 +246,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/onboarding/': {
+      id: '/onboarding/'
+      path: '/'
+      fullPath: '/onboarding/'
+      preLoaderRoute: typeof OnboardingIndexRouteImport
+      parentRoute: typeof OnboardingRoute
+    }
     '/muscles/': {
       id: '/muscles/'
       path: '/muscles'
@@ -276,10 +293,12 @@ declare module '@tanstack/react-router' {
 
 interface OnboardingRouteChildren {
   OnboardingResultsRoute: typeof OnboardingResultsRoute
+  OnboardingIndexRoute: typeof OnboardingIndexRoute
 }
 
 const OnboardingRouteChildren: OnboardingRouteChildren = {
   OnboardingResultsRoute: OnboardingResultsRoute,
+  OnboardingIndexRoute: OnboardingIndexRoute,
 }
 
 const OnboardingRouteWithChildren = OnboardingRoute._addFileChildren(
