@@ -1,8 +1,8 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { SiteNav } from "@/components/site-nav";
 import { ADMIN_SECTIONS, type AdminSectionId } from "@/components/admin/sections";
 import { ShieldCheck } from "lucide-react";
+import { useAuth } from "@/lib/auth-context";
 
 export const Route = createFileRoute("/admin")({
   head: () => ({
@@ -17,13 +17,44 @@ export const Route = createFileRoute("/admin")({
 });
 
 function AdminPage() {
+  const { user, isAdmin, loading } = useAuth();
   const [active, setActive] = useState<AdminSectionId>("overview");
   const Section = ADMIN_SECTIONS.find((s) => s.id === active)?.Component ?? ADMIN_SECTIONS[0].Component;
 
+  if (loading) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center px-4 text-sm text-muted-foreground">
+        Loading…
+      </div>
+    );
+  }
+
+  if (!user || !isAdmin) {
+    return (
+      <div className="flex min-h-[60vh] items-center justify-center px-4">
+        <div className="max-w-md text-center">
+          <ShieldCheck className="mx-auto h-10 w-10 text-lime" />
+          <h1 className="mt-4 font-display text-2xl font-semibold">Admins only</h1>
+          <p className="mt-2 text-sm text-muted-foreground">
+            {user
+              ? "Your account doesn't have access to the admin console."
+              : "Sign in with an admin account to continue."}
+          </p>
+          <div className="mt-6">
+            <Link
+              to={user ? "/" : "/auth"}
+              className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-semibold text-primary-foreground"
+            >
+              {user ? "Back to Home" : "Sign in"}
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background">
-      <SiteNav />
-
       <div className="mx-auto flex max-w-7xl gap-6 px-4 pb-24 pt-6 sm:px-6 lg:pb-10">
         <aside className="hidden w-60 flex-shrink-0 lg:block">
           <div className="sticky top-20 space-y-4">
