@@ -1,20 +1,19 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, LogOut, Sun, Moon } from "lucide-react";
-import logo from "@/assets/gym-lift-logo.jpeg";
 import { useAuth } from "@/lib/auth-context";
 import { useTheme } from "@/lib/theme-provider";
+import { TrainrWordmark } from "@/components/trainr-wordmark";
 import { cn } from "@/lib/utils";
 
 const links = [
   { to: "/", label: "Home" },
-  { to: "/muscles", label: "Muscles" },
-  { to: "/exercises", label: "Exercises" },
-  { to: "/coaches", label: "Coaches" },
+  { to: "/coaches", label: "Programs" },
+  { to: "/muscles", label: "Library" },
   { to: "/tracker", label: "Tracker" },
   { to: "/coach", label: "AI Coach" },
-  { to: "/dashboard", label: "Dashboard" },
-  { to: "/creator-dashboard", label: "Creator Studio" },
+  { to: "/creator-dashboard", label: "Creators" },
+  { to: "/pricing", label: "Pricing" },
 ] as const;
 
 export function SiteNav() {
@@ -26,10 +25,7 @@ export function SiteNav() {
     <header className="sticky top-0 z-50 border-b border-border bg-background/85 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between px-4 sm:px-6">
         <Link to="/" className="flex items-center gap-2" onClick={() => setOpen(false)}>
-          <img src={logo} alt="Gym Lift" className="h-8 w-8 rounded object-cover" />
-          <span className="font-display text-base font-bold tracking-tight">
-            GYM<span className="text-lime"> LIFT</span>
-          </span>
+          <TrainrWordmark />
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex">
@@ -66,9 +62,9 @@ export function SiteNav() {
           ) : (
             <Link
               to="/auth"
-              className="rounded-md bg-primary px-4 py-1.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
+              className="rounded-md bg-lime px-4 py-1.5 text-sm font-semibold text-primary-foreground transition-opacity hover:opacity-90"
             >
-              Sign in
+              Start free
             </Link>
           )}
         </div>
@@ -127,9 +123,9 @@ export function SiteNav() {
               <Link
                 to="/auth"
                 onClick={() => setOpen(false)}
-                className="block w-full rounded-md bg-primary px-4 py-2.5 text-center text-sm font-semibold text-primary-foreground"
+                className="block w-full rounded-md bg-lime px-4 py-2.5 text-center text-sm font-semibold text-primary-foreground"
               >
-                Sign in
+                Start free
               </Link>
             )}
           </div>

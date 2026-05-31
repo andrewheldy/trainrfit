@@ -7,8 +7,8 @@ import { useAuth } from "@/lib/auth-context";
 export const Route = createFileRoute("/coach")({
   head: () => ({
     meta: [
-      { title: "AI Coach — Gym Lift" },
-      { name: "description", content: "Get guidance on exercise selection, form, training splits, and recovery." },
+      { title: "AI Coach — trainr" },
+      { name: "description", content: "Personalized guidance powered by AI. Workout adjustments, alternatives, plateau detection." },
     ],
   }),
   component: CoachPage,
@@ -64,9 +64,9 @@ function CoachPage() {
       <div className="flex items-center gap-2 label-eyebrow">
         <Sparkles className="h-3.5 w-3.5 text-lime" /> AI Coach
       </div>
-      <h1 className="mt-2 font-display text-4xl font-bold sm:text-5xl">Ask Smarter Training Questions</h1>
+      <h1 className="mt-2 font-display text-4xl font-bold sm:text-5xl">Personalized Guidance Powered By AI</h1>
       <p className="mt-3 text-muted-foreground">
-        Guidance on exercise selection, splits, hypertrophy, fat loss, and recovery. Placeholder answers for now — the coach is in training.
+        trainr reads your training history, consistency, and recovery to recommend real adjustments — not generic advice.
       </p>
 
       {!user ? (

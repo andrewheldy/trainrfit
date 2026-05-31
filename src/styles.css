@@ -5,9 +5,10 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Gym Lift design system — dark by default.
- * Obsidian black surfaces, ice-white type, electric lime accent.
- * Use accent sparingly: primary actions, PRs, completed states.
+ * trainr design system — dark navy + neon green.
+ * Deep navy surfaces, white type, electric neon-green accent on the final "r".
+ * Inspired by Linear, Stripe, Discord, Spotify, Notion.
+ * Use accent sparingly: primary actions, PRs, completed states, the brand mark.
  */
 
 @theme inline {
@@ -47,85 +48,84 @@
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 0.75rem;
   color-scheme: dark;
 }
 
 .dark,
 :root:not(.light) {
-  /* Obsidian Black #0B0D0F */
-  --background: oklch(0.145 0.005 240);
-  /* Ice White #F5F7FA */
-  --foreground: oklch(0.97 0.005 240);
+  /* Deep navy #0B1220 */
+  --background: oklch(0.17 0.03 260);
+  /* Pure white */
+  --foreground: oklch(0.99 0 0);
 
-  /* Graphite #1B1F24 */
-  --card: oklch(0.22 0.008 240);
-  --card-foreground: oklch(0.97 0.005 240);
-  --surface: oklch(0.22 0.008 240);
-  /* Slate Steel #2A3138 */
-  --elevated: oklch(0.3 0.01 240);
+  /* Surface navy #111A2C */
+  --card: oklch(0.22 0.035 260);
+  --card-foreground: oklch(0.99 0 0);
+  --surface: oklch(0.22 0.035 260);
+  /* Elevated navy #172238 */
+  --elevated: oklch(0.27 0.04 260);
 
-  --popover: oklch(0.22 0.008 240);
-  --popover-foreground: oklch(0.97 0.005 240);
+  --popover: oklch(0.22 0.035 260);
+  --popover-foreground: oklch(0.99 0 0);
 
-  /* Electric Lime #C5FF3D */
-  --lime: oklch(0.92 0.22 125);
-  --primary: oklch(0.92 0.22 125);
-  --primary-foreground: oklch(0.15 0.01 240);
+  /* Neon green #B6FF3C */
+  --lime: oklch(0.93 0.24 130);
+  --primary: oklch(0.93 0.24 130);
+  --primary-foreground: oklch(0.17 0.03 260);
 
-  --secondary: oklch(0.3 0.01 240);
-  --secondary-foreground: oklch(0.97 0.005 240);
+  --secondary: oklch(0.27 0.04 260);
+  --secondary-foreground: oklch(0.99 0 0);
 
-  /* Cool Gray #A8B0B8 */
-  --muted: oklch(0.28 0.008 240);
-  --muted-foreground: oklch(0.73 0.008 240);
+  --muted: oklch(0.27 0.04 260);
+  /* Cool slate #8A95A8 */
+  --muted-foreground: oklch(0.7 0.025 260);
 
-  --accent: oklch(0.92 0.22 125);
-  --accent-foreground: oklch(0.15 0.01 240);
+  --accent: oklch(0.93 0.24 130);
+  --accent-foreground: oklch(0.17 0.03 260);
 
-  --destructive: oklch(0.55 0.2 25);
-  --destructive-foreground: oklch(0.97 0.005 240);
+  --destructive: oklch(0.6 0.22 25);
+  --destructive-foreground: oklch(0.99 0 0);
 
-  --border: oklch(1 0 0 / 8%);
+  --border: oklch(1 0 0 / 7%);
   --input: oklch(1 0 0 / 10%);
-  --ring: oklch(0.92 0.22 125);
+  --ring: oklch(0.93 0.24 130);
 
   color-scheme: dark;
 }
 
 .light {
-  /* Light theme — Cloud White base */
-  --background: oklch(0.97 0.005 240);
-  --foreground: oklch(0.18 0.01 240);
+  /* Light theme — clean off-white */
+  --background: oklch(0.99 0.003 260);
+  --foreground: oklch(0.2 0.03 260);
 
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.01 240);
-  --surface: oklch(0.95 0.005 240);
-  --elevated: oklch(0.93 0.005 240);
+  --card-foreground: oklch(0.2 0.03 260);
+  --surface: oklch(0.96 0.005 260);
+  --elevated: oklch(0.93 0.008 260);
 
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.01 240);
+  --popover-foreground: oklch(0.2 0.03 260);
 
-  /* Electric Lime — slightly desaturated for light bg */
-  --lime: oklch(0.82 0.22 125);
-  --primary: oklch(0.75 0.2 125);
-  --primary-foreground: oklch(0.97 0.005 240);
+  --lime: oklch(0.78 0.22 130);
+  --primary: oklch(0.22 0.04 260);
+  --primary-foreground: oklch(0.99 0 0);
 
-  --secondary: oklch(0.93 0.005 240);
-  --secondary-foreground: oklch(0.18 0.01 240);
+  --secondary: oklch(0.93 0.008 260);
+  --secondary-foreground: oklch(0.2 0.03 260);
 
-  --muted: oklch(0.92 0.005 240);
-  --muted-foreground: oklch(0.55 0.01 240);
+  --muted: oklch(0.93 0.008 260);
+  --muted-foreground: oklch(0.5 0.02 260);
 
-  --accent: oklch(0.75 0.2 125);
-  --accent-foreground: oklch(0.97 0.005 240);
+  --accent: oklch(0.78 0.22 130);
+  --accent-foreground: oklch(0.2 0.03 260);
 
   --destructive: oklch(0.55 0.2 25);
-  --destructive-foreground: oklch(0.97 0.005 240);
+  --destructive-foreground: oklch(0.99 0 0);
 
-  --border: oklch(0 0 0 / 10%);
+  --border: oklch(0 0 0 / 9%);
   --input: oklch(0 0 0 / 12%);
-  --ring: oklch(0.75 0.2 125);
+  --ring: oklch(0.78 0.22 130);
 
   color-scheme: light;
 }
@@ -171,8 +171,17 @@
   100% { opacity: 1; transform: translate(-50%, -40%) scale(1); }
 }
 
+@keyframes trainr-glow {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 0.8; }
+}
+
 @layer components {
   .input {
     @apply w-full rounded-md border border-border bg-elevated/40 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:border-lime/50 focus:outline-none;
+  }
+
+  .glow-lime {
+    box-shadow: 0 0 80px -10px color-mix(in oklab, var(--lime) 45%, transparent);
   }
 }

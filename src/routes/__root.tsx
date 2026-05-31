@@ -82,27 +82,24 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "theme-color", content: "#0B0D0F" },
-      { title: "Gym Lift — Train With Purpose" },
+      { name: "theme-color", content: "#0B1220" },
+      { title: "trainr — Everything You Need To Train Better" },
       {
         name: "description",
         content:
-          "Discover exercises, master proper form, build workouts, and track every lift. The operating system for better lifting.",
+          "Track workouts, build programs, follow coaches, join challenges, and grow with a fitness community that keeps you accountable.",
       },
-      { property: "og:title", content: "Gym Lift — Train With Purpose" },
+      { property: "og:site_name", content: "trainr" },
+      { property: "og:title", content: "trainr — Everything You Need To Train Better" },
       {
         property: "og:description",
         content:
-          "Discover exercises, master proper form, build workouts, and track every lift.",
+          "Track workouts, build programs, follow coaches, join challenges, and grow with a fitness community that keeps you accountable.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Gym Lift — Train With Purpose" },
-      { name: "description", content: "Gym Lift is a modern fitness platform for discovering exercises, tracking workouts, and mastering proper form." },
-      { property: "og:description", content: "Gym Lift is a modern fitness platform for discovering exercises, tracking workouts, and mastering proper form." },
-      { name: "twitter:description", content: "Gym Lift is a modern fitness platform for discovering exercises, tracking workouts, and mastering proper form." },
-      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/45d4ba0f-f48b-41d0-8c55-7d69a67a3347/id-preview-a888b4a4--042dc9ed-a671-4a4f-bd4c-d2a9fc3b573a.lovable.app-1780086446211.png" },
-      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/45d4ba0f-f48b-41d0-8c55-7d69a67a3347/id-preview-a888b4a4--042dc9ed-a671-4a4f-bd4c-d2a9fc3b573a.lovable.app-1780086446211.png" },
+      { name: "twitter:title", content: "trainr — Everything You Need To Train Better" },
+      { name: "twitter:description", content: "The operating system for fitness." },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
