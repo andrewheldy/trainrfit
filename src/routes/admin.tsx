@@ -57,19 +57,7 @@ function AdminPage() {
     <div className="min-h-screen bg-background">
       <div className="mx-auto flex max-w-7xl gap-6 px-4 pb-24 pt-6 sm:px-6 lg:pb-10">
         <aside className="hidden w-60 flex-shrink-0 lg:block">
-          <div className="sticky top-20 space-y-4">
-            <div className="rounded-lg border border-border bg-surface p-4">
-              <div className="flex items-center gap-3">
-                <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-lime/15 text-lime">
-                  <ShieldCheck className="h-6 w-6" />
-                </div>
-                <div className="min-w-0">
-                  <div className="truncate font-display text-sm font-semibold">Gym Lift Admin</div>
-                  <div className="truncate text-[10px] uppercase tracking-wider text-muted-foreground">Operator console</div>
-                </div>
-              </div>
-            </div>
-
+          <div className="sticky top-20">
             <nav className="flex flex-col gap-1">
               {ADMIN_SECTIONS.map((s) => {
                 const Icon = s.icon;
