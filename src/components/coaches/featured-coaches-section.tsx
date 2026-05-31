@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, BadgeCheck, Users, Layers } from "lucide-react";
 import { COACHES, formatFollowers, getAllPrograms } from "@/lib/coaches/data";
+import { CATEGORY_ICON } from "@/lib/coaches/category-icons";
 
 export function FeaturedCoachesSection() {
   const featured = COACHES.slice(0, 10);
@@ -56,6 +57,20 @@ export function FeaturedCoachesSection() {
                 <p className="text-[10px] uppercase tracking-wider text-muted-foreground line-clamp-2">
                   {coach.specialty}
                 </p>
+                <div className="mt-1.5 flex flex-wrap gap-1">
+                  {coach.categories.slice(0, 3).map((cat) => {
+                    const Icon = CATEGORY_ICON[cat];
+                    return (
+                      <span
+                        key={cat}
+                        title={cat}
+                        className="inline-flex items-center rounded-full border border-border bg-elevated p-1"
+                      >
+                        <Icon className="h-3 w-3 text-lime" />
+                      </span>
+                    );
+                  })}
+                </div>
                 <div className="mt-auto flex items-center justify-between pt-2 text-[10px] text-muted-foreground">
                   <span className="inline-flex items-center gap-1">
                     <Users className="h-3 w-3" /> {formatFollowers(coach.followers)}

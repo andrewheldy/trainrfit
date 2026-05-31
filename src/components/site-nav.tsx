@@ -8,11 +8,10 @@ import { cn } from "@/lib/utils";
 
 const links = [
   { to: "/", label: "Home" },
-  { to: "/coaches", label: "Programs" },
+  { to: "/coaches", label: "Creators" },
   { to: "/muscles", label: "Library" },
   { to: "/tracker", label: "Tracker" },
   { to: "/coach", label: "AI Coach" },
-  { to: "/creator-dashboard", label: "Creators" },
   { to: "/pricing", label: "Pricing" },
 ] as const;
 
@@ -51,6 +50,12 @@ export function SiteNav() {
           >
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
+          <Link
+            to="/creator-dashboard"
+            className="inline-flex items-center rounded-md border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-lime/40 hover:text-foreground"
+          >
+            Creator Studio
+          </Link>
           {user ? (
             <button
               onClick={() => signOut()}
@@ -108,6 +113,13 @@ export function SiteNav() {
               {l.label}
             </Link>
           ))}
+          <Link
+            to="/creator-dashboard"
+            onClick={() => setOpen(false)}
+            className="mt-3 block w-full rounded-md border border-border px-3 py-2.5 text-center text-sm font-medium text-muted-foreground"
+          >
+            Creator Studio
+          </Link>
           <div className="pt-3">
             {user ? (
               <button

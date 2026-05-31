@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { SiteNav } from "@/components/site-nav";
+
 import { SECTIONS, type SectionId } from "@/components/creator/sections";
 import { CURRENT_CREATOR } from "@/lib/creator/mock-data";
 import { BadgeCheck } from "lucide-react";
@@ -23,7 +23,7 @@ function CreatorDashboardPage() {
 
   return (
     <div className="min-h-screen bg-background">
-      <SiteNav />
+
 
       <div className="mx-auto flex max-w-7xl gap-6 px-4 pb-24 pt-6 sm:px-6 lg:pb-10">
         {/* Sidebar (desktop) */}
