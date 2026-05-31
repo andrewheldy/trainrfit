@@ -69,7 +69,7 @@ export const COACHES: Coach[] = [
     specialty: "Science-Based Muscle Building",
     bio: "Natural pro bodybuilder and biochemistry graduate. Jeff distills the latest exercise science into practical, evidence-based training programs that deliver measurable results for beginners to advanced lifters.",
     photo: jeffNippardPhoto,
-    banner: u("photo-1583500178690-f7fd39c44c3d"),
+    banner: u("photo-1574680096145-d05b474e2155"),
     followers: 2450000,
     verified: true,
     categories: ["Muscle Building", "Strength", "Beginner Friendly"],
@@ -190,7 +190,7 @@ export const COACHES: Coach[] = [
       {
         slug: "strength-and-sculpt",
         name: "Strength & Sculpt",
-        cover: u("photo-1609899537878-88d5ba429bdf"),
+        cover: u("photo-1571019613454-1cb2f99b2d8b"),
         goal: "Tone & Strength",
         duration: "10 Weeks",
         difficulty: "Beginner",
@@ -264,7 +264,7 @@ export const COACHES: Coach[] = [
       {
         slug: "beginner-transformation",
         name: "Beginner Transformation",
-        cover: u("photo-1583454122760-d7fc14e57c84"),
+        cover: u("photo-1599058917212-d750089bc07e"),
         goal: "Build Muscle & Lose Fat",
         duration: "12 Weeks",
         difficulty: "Beginner",
@@ -301,7 +301,7 @@ export const COACHES: Coach[] = [
       {
         slug: "advanced-hypertrophy",
         name: "Advanced Hypertrophy",
-        cover: u("photo-1517963879433-6ad2b056fdcd"),
+        cover: u("photo-1518310383802-640c2de311b2"),
         goal: "Maximum Muscle Growth",
         duration: "16 Weeks",
         difficulty: "Advanced",
@@ -413,7 +413,7 @@ export const COACHES: Coach[] = [
       {
         slug: "womens-strength",
         name: "Women's Strength Program",
-        cover: u("photo-1571732154690-f6d1c3a5ed81"),
+        cover: u("photo-1518459031867-a89b944bffe4"),
         goal: "Strength & Confidence",
         duration: "10 Weeks",
         difficulty: "Beginner",
@@ -424,7 +424,7 @@ export const COACHES: Coach[] = [
       {
         slug: "itss-upper-lower",
         name: "It's a Beautiful Day to Be Alive",
-        cover: u("photo-1571019648919-15b6b8e3e2e7"),
+        cover: u("photo-1571019614242-c5c5dee9f50b"),
         goal: "Full-Body Strength",
         duration: "8 Weeks",
         difficulty: "Intermediate",
