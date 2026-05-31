@@ -57,7 +57,7 @@ function AdminPage() {
     <div className="min-h-screen bg-background">
       <div className="mx-auto flex max-w-7xl gap-6 px-4 pb-24 pt-6 sm:px-6 lg:pb-10">
         <aside className="hidden w-60 flex-shrink-0 lg:block">
-          <div className="sticky top-20 space-y-4">
+          <div className="sticky top-20">
             <nav className="flex flex-col gap-1">
               {ADMIN_SECTIONS.map((s) => {
                 const Icon = s.icon;
