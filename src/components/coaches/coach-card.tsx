@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { BadgeCheck, Users, Layers } from "lucide-react";
 import { type Coach, formatFollowers } from "@/lib/coaches/data";
 import { useFollowedCoaches } from "@/lib/coaches/storage";
+import { CATEGORY_ICON } from "@/lib/coaches/category-icons";
 
 export function CoachCard({ coach, compact = false }: { coach: Coach; compact?: boolean }) {
   const { has, toggle } = useFollowedCoaches();
@@ -35,6 +36,21 @@ export function CoachCard({ coach, compact = false }: { coach: Coach; compact?: 
         <p className="mt-1 text-xs uppercase tracking-widest text-muted-foreground">
           {coach.specialty}
         </p>
+
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {coach.categories.map((cat) => {
+            const Icon = CATEGORY_ICON[cat];
+            return (
+              <span
+                key={cat}
+                className="inline-flex items-center gap-1 rounded-full border border-border bg-background px-2 py-0.5 text-[10px] font-medium text-muted-foreground"
+              >
+                <Icon className="h-3 w-3 text-lime" />
+                {cat}
+              </span>
+            );
+          })}
+        </div>
 
         {!compact && (
           <p className="mt-3 line-clamp-2 text-sm text-muted-foreground">{coach.bio}</p>
