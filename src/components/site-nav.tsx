@@ -8,11 +8,10 @@ import { cn } from "@/lib/utils";
 
 const links = [
   { to: "/", label: "Home" },
-  { to: "/coaches", label: "Programs" },
+  { to: "/coaches", label: "Creators" },
   { to: "/muscles", label: "Library" },
   { to: "/tracker", label: "Tracker" },
   { to: "/coach", label: "AI Coach" },
-  { to: "/creator-dashboard", label: "Creators" },
   { to: "/pricing", label: "Pricing" },
 ] as const;
 
