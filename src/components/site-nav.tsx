@@ -113,6 +113,13 @@ export function SiteNav() {
               {l.label}
             </Link>
           ))}
+          <Link
+            to="/creator-dashboard"
+            onClick={() => setOpen(false)}
+            className="mt-3 block w-full rounded-md border border-border px-3 py-2.5 text-center text-sm font-medium text-muted-foreground"
+          >
+            Creator Studio
+          </Link>
           <div className="pt-3">
             {user ? (
               <button
