@@ -47,28 +47,20 @@ function CoachProfile() {
 
   return (
     <div>
-      {/* Banner */}
-      <section className="relative h-56 overflow-hidden border-b border-border bg-elevated sm:h-72">
-        <img src={coach.banner} alt="" className="absolute inset-0 h-full w-full object-cover opacity-50" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent" />
-        <div className="relative mx-auto flex h-full max-w-7xl items-end px-4 pb-4 sm:px-6">
+      {/* Header */}
+      <section className="border-b border-border">
+        <div className="mx-auto max-w-7xl px-4 pb-10 pt-6 sm:px-6 sm:pt-8">
           <Link
             to="/coaches"
             className="inline-flex items-center gap-1 text-xs font-semibold text-muted-foreground hover:text-foreground"
           >
             <ArrowLeft className="h-3.5 w-3.5" /> All Coaches
           </Link>
-        </div>
-      </section>
-
-      {/* Header */}
-      <section className="border-b border-border">
-        <div className="mx-auto max-w-7xl px-4 pb-10 sm:px-6">
           <img
             src={coach.photo}
             alt={coach.name}
             style={coach.photoPosition ? { objectPosition: coach.photoPosition } : undefined}
-            className="-mt-14 h-28 w-28 rounded-lg border-4 border-background object-cover object-top shadow-lg sm:-mt-20 sm:h-36 sm:w-36"
+            className="mt-6 h-28 w-28 rounded-lg border border-border object-cover object-top shadow-lg sm:h-36 sm:w-36"
           />
 
           <div className="mt-5 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
