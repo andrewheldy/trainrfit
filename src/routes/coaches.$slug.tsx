@@ -73,10 +73,10 @@ function CoachProfile() {
 
           <div className="mt-5 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex-1">
-              <div className="flex flex-wrap items-center gap-2">
-                <h1 className="font-display text-3xl font-bold sm:text-4xl">{coach.name}</h1>
+              <div className="flex flex-col items-start gap-2 sm:flex-row sm:flex-wrap sm:items-center">
+                <h1 className="max-w-full break-words font-display text-3xl font-bold leading-tight sm:text-4xl">{coach.name}</h1>
                 {coach.verified && (
-                  <span className="inline-flex items-center gap-1 rounded-full bg-lime/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-lime">
+                  <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-lime/15 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-lime">
                     <BadgeCheck className="h-3 w-3" /> Verified
                   </span>
                 )}
