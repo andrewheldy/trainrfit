@@ -63,14 +63,15 @@ function CoachProfile() {
 
       {/* Header */}
       <section className="border-b border-border">
-        <div className="mx-auto -mt-16 max-w-7xl px-4 pb-10 sm:px-6">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-end">
-            <img
-              src={coach.photo}
-              alt={coach.name}
-              style={coach.photoPosition ? { objectPosition: coach.photoPosition } : undefined}
-              className="h-28 w-28 flex-shrink-0 rounded-lg border-4 border-background object-cover object-top shadow-lg sm:h-36 sm:w-36"
-            />
+        <div className="mx-auto max-w-7xl px-4 pb-10 sm:px-6">
+          <img
+            src={coach.photo}
+            alt={coach.name}
+            style={coach.photoPosition ? { objectPosition: coach.photoPosition } : undefined}
+            className="-mt-14 h-28 w-28 rounded-lg border-4 border-background object-cover object-top shadow-lg sm:-mt-20 sm:h-36 sm:w-36"
+          />
+
+          <div className="mt-5 flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex-1">
               <div className="flex flex-wrap items-center gap-2">
                 <h1 className="font-display text-3xl font-bold sm:text-4xl">{coach.name}</h1>
@@ -97,7 +98,7 @@ function CoachProfile() {
               </div>
             </div>
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 sm:pt-1">
               <button
                 onClick={() => toggle(coach.slug)}
                 className={
@@ -110,6 +111,7 @@ function CoachProfile() {
               </button>
             </div>
           </div>
+
 
           <div className="mt-8 grid gap-8 lg:grid-cols-3">
             <div className="lg:col-span-2">
