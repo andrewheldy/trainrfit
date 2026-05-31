@@ -50,6 +50,12 @@ export function SiteNav() {
           >
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
+          <Link
+            to="/creator-dashboard"
+            className="inline-flex items-center rounded-md border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-lime/40 hover:text-foreground"
+          >
+            Creator Studio
+          </Link>
           {user ? (
             <button
               onClick={() => signOut()}
