@@ -7,8 +7,8 @@ import { useAuth } from "@/lib/auth-context";
 export const Route = createFileRoute("/coach")({
   head: () => ({
     meta: [
-      { title: "AI Coach — Gym Lift" },
-      { name: "description", content: "Get guidance on exercise selection, form, training splits, and recovery." },
+      { title: "AI Coach — trainr" },
+      { name: "description", content: "Personalized guidance powered by AI. Workout adjustments, alternatives, plateau detection." },
     ],
   }),
   component: CoachPage,
