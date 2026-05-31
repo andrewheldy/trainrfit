@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import logo from "@/assets/trainr-logo.png";
 
 export function TrainrWordmark({
   className,
@@ -8,19 +9,16 @@ export function TrainrWordmark({
   size?: "sm" | "md" | "lg";
 }) {
   const sizes = {
-    sm: "text-base",
-    md: "text-lg",
-    lg: "text-2xl",
+    sm: "h-5",
+    md: "h-6",
+    lg: "h-9",
   };
   return (
-    <span
-      className={cn(
-        "font-display font-bold tracking-tight text-foreground lowercase",
-        sizes[size],
-        className,
-      )}
-    >
-      train<span className="text-lime">r</span>
-    </span>
+    <img
+      src={logo}
+      alt="trainr"
+      className={cn("w-auto select-none", sizes[size], className)}
+      draggable={false}
+    />
   );
 }
