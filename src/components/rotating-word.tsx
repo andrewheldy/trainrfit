@@ -19,11 +19,14 @@ export function RotatingWord({
   }, [words.length, intervalMs]);
 
   return (
-    <span
-      key={index}
-      className={`inline-block animate-fade-in ${className}`}
-    >
-      {words[index]}
+    <span className={`relative inline-block overflow-hidden align-bottom ${className}`}>
+      <span
+        key={index}
+        className="inline-block"
+        style={{ animation: "slide-down-in 0.5s ease-out" }}
+      >
+        {words[index]}
+      </span>
     </span>
   );
 }
