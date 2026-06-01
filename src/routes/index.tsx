@@ -82,7 +82,7 @@ function Hero() {
             To Train{" "}
             <span className="block sm:inline">
               <RotatingWord
-                words={["Harder.", "Better.", "Stronger.", "Faster."]}
+                words={["Harder.", "Better.", "Faster.", "Stronger."]}
                 reserveWord="Stronger."
                 className="text-lime"
               />
