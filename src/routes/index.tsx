@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { RotatingWord } from "@/components/rotating-word";
 import {
   ArrowRight,
   Activity,
