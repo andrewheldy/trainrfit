@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TrackerRouteImport } from './routes/tracker'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as OnboardingRouteImport } from './routes/onboarding'
 import { Route as MyLiftRouteImport } from './routes/my-lift'
@@ -34,6 +36,16 @@ import { Route as CoachesSlugProgramsProgramSlugRouteImport } from './routes/coa
 const TrackerRoute = TrackerRouteImport.update({
   id: '/tracker',
   path: '/tracker',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PricingRoute = PricingRouteImport.update({
@@ -149,6 +161,8 @@ export interface FileRoutesByFullPath {
   '/my-lift': typeof MyLiftRoute
   '/onboarding': typeof OnboardingRouteWithChildren
   '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/tracker': typeof TrackerRoute
   '/coaches/$slug': typeof CoachesSlugRouteWithChildren
   '/exercises/$slug': typeof ExercisesSlugRoute
@@ -171,6 +185,8 @@ export interface FileRoutesByTo {
   '/dashboard': typeof DashboardRoute
   '/my-lift': typeof MyLiftRoute
   '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/tracker': typeof TrackerRoute
   '/coaches/$slug': typeof CoachesSlugRouteWithChildren
   '/exercises/$slug': typeof ExercisesSlugRoute
@@ -195,6 +211,8 @@ export interface FileRoutesById {
   '/my-lift': typeof MyLiftRoute
   '/onboarding': typeof OnboardingRouteWithChildren
   '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/terms': typeof TermsRoute
   '/tracker': typeof TrackerRoute
   '/coaches/$slug': typeof CoachesSlugRouteWithChildren
   '/exercises/$slug': typeof ExercisesSlugRoute
@@ -220,6 +238,8 @@ export interface FileRouteTypes {
     | '/my-lift'
     | '/onboarding'
     | '/pricing'
+    | '/privacy'
+    | '/terms'
     | '/tracker'
     | '/coaches/$slug'
     | '/exercises/$slug'
@@ -242,6 +262,8 @@ export interface FileRouteTypes {
     | '/dashboard'
     | '/my-lift'
     | '/pricing'
+    | '/privacy'
+    | '/terms'
     | '/tracker'
     | '/coaches/$slug'
     | '/exercises/$slug'
@@ -265,6 +287,8 @@ export interface FileRouteTypes {
     | '/my-lift'
     | '/onboarding'
     | '/pricing'
+    | '/privacy'
+    | '/terms'
     | '/tracker'
     | '/coaches/$slug'
     | '/exercises/$slug'
@@ -289,6 +313,8 @@ export interface RootRouteChildren {
   MyLiftRoute: typeof MyLiftRoute
   OnboardingRoute: typeof OnboardingRouteWithChildren
   PricingRoute: typeof PricingRoute
+  PrivacyRoute: typeof PrivacyRoute
+  TermsRoute: typeof TermsRoute
   TrackerRoute: typeof TrackerRoute
   CoachesSlugRoute: typeof CoachesSlugRouteWithChildren
   ExercisesSlugRoute: typeof ExercisesSlugRoute
@@ -305,6 +331,20 @@ declare module '@tanstack/react-router' {
       path: '/tracker'
       fullPath: '/tracker'
       preLoaderRoute: typeof TrackerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/pricing': {
@@ -489,6 +529,8 @@ const rootRouteChildren: RootRouteChildren = {
   MyLiftRoute: MyLiftRoute,
   OnboardingRoute: OnboardingRouteWithChildren,
   PricingRoute: PricingRoute,
+  PrivacyRoute: PrivacyRoute,
+  TermsRoute: TermsRoute,
   TrackerRoute: TrackerRoute,
   CoachesSlugRoute: CoachesSlugRouteWithChildren,
   ExercisesSlugRoute: ExercisesSlugRoute,
@@ -500,3 +542,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}

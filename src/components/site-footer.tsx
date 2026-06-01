@@ -35,9 +35,17 @@ export function SiteFooter() {
         </FooterCol>
       </div>
       <div className="border-t border-border">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-6 text-xs text-muted-foreground sm:px-6">
+        <div className="mx-auto flex max-w-7xl flex-col gap-3 px-4 py-6 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between sm:px-6">
           <span>© {new Date().getFullYear()} trainr</span>
-          <span className="font-display tracking-wider">Track better. Train smarter.</span>
+          <div className="flex items-center gap-4">
+            <Link to="/terms" className="transition-colors hover:text-foreground">
+              Terms of Service
+            </Link>
+            <Link to="/privacy" className="transition-colors hover:text-foreground">
+              Privacy Policy
+            </Link>
+            <span className="font-display tracking-wider">Track better. Train smarter.</span>
+          </div>
         </div>
       </div>
     </footer>
