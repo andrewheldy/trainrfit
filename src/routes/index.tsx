@@ -79,7 +79,14 @@ function Hero() {
           <h1 className="mt-6 font-display text-5xl font-bold leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-7xl">
             Everything You Need
             <br />
-            To Train <RotatingWord words={["Better.", "Stronger.", "Faster."]} className="text-lime" />
+            To Train{" "}
+            <span className="block sm:inline">
+              <RotatingWord
+                words={["Better.", "Stronger.", "Faster."]}
+                reserveWord="Stronger."
+                className="text-lime"
+              />
+            </span>
           </h1>
           <p className="mt-6 max-w-xl text-base text-muted-foreground sm:text-lg">
             Track workouts, build programs, follow coaches, join challenges, and grow with a fitness community that keeps you accountable.
