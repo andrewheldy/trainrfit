@@ -1,0 +1,263 @@
+{
+  "export_meta": {
+    "schema_version": "1.0",
+    "generated_at": "2026-06-03",
+    "venture": "Trainr",
+    "repo": "trainrfit",
+    "export_type": "development_tasks",
+    "task_count": 10,
+    "source": "repo_audit"
+  },
+  "tasks": [
+    {
+      "id": "trainrfit-001",
+      "title": "Add is_creator and is_admin flags to profiles table",
+      "category": "Foundation",
+      "priority": "critical",
+      "status": "todo",
+      "difficulty": "low",
+      "recommended_order": 1,
+      "why_it_matters": "Auth checks currently rely on a hardcoded email list in source code and an env var fallback. Every gated feature — admin dashboard, creator dashboard, creator-only routes — depends on a DB source of truth for role checking. Without this, adding any new admin or creator requires a code change and redeploy.",
+      "files_likely_affected": [
+        "supabase/migrations/ (new migration file)",
+        "src/lib/auth-context.tsx",
+        "src/integrations/supabase/types.ts"
+      ],
+      "dependencies": [],
+      "acceptance_criteria": [
+        "New Supabase migration adds is_admin (boolean, default false) and is_creator (boolean, default false) to the profiles table",
+        "useAuth() hook returns isAdmin and isCreator read from the authenticated user's profiles row",
+        "VITE_ADMIN_EMAILS env var fallback is removed from auth-context.tsx",
+        "Existing admin functionality continues to work for the designated admin user",
+        "TypeScript types regenerated and reflect new columns"
+      ]
+    },
+    {
+      "id": "trainrfit-002",
+      "title": "Seed exercise library to Supabase",
+      "category": "Workout Database",
+      "priority": "critical",
+      "status": "todo",
+      "difficulty": "medium",
+      "recommended_order": 2,
+      "why_it_matters": "The exercises table exists in the DB schema but contains no data. The exercise library pages currently read from a static TypeScript file (src/data/exercises.ts) that is disconnected from the database. The workout tracker lets users log exercises but pulls the list from this same static file. Without real DB data, exercise search, filtering, and muscle-group linking are all impossible.",
+      "files_likely_affected": [
+        "supabase/migrations/ (new seed migration)",
+        "src/data/exercises.ts (source data to migrate from)"
+      ],
+      "dependencies": [],
+      "acceptance_criteria": [
+        "All exercises from src/data/exercises.ts are inserted into the Supabase exercises table via a migration",
+        "Each exercise has a valid slug, difficulty, and at minimum one associated muscle in exercise_muscles",
+        "Migration is idempotent (safe to re-run without duplicating rows)",
+        "src/data/exercises.ts is kept as fallback but clearly marked as deprecated seed source"
+      ]
+    },
+    {
+      "id": "trainrfit-003",
+      "title": "Seed muscle groups to Supabase",
+      "category": "Workout Database",
+      "priority": "high",
+      "status": "todo",
+      "difficulty": "low",
+      "recommended_order": 3,
+      "why_it_matters": "The muscles table exists in the schema with columns for region, weekly_sets_min, weekly_sets_max, slug, and overview — but no data has been seeded. The muscle map UI exists and the routes exist, but /muscles and /muscles/:slug cannot render any real content. This also blocks exercise-to-muscle linking in the tracker.",
+      "files_likely_affected": [
+        "supabase/migrations/ (new seed migration)"
+      ],
+      "dependencies": [],
+      "acceptance_criteria": [
+        "All major muscle groups are seeded (chest, back, shoulders, biceps, triceps, quads, hamstrings, glutes, calves, core, traps, forearms)",
+        "Each muscle has a valid slug, region classification, and volume landmark values (weekly_sets_min, weekly_sets_max)",
+        "Migration is idempotent",
+        "exercise_muscles join table has populated rows linking exercises to muscles with primary/secondary roles"
+      ]
+    },
+    {
+      "id": "trainrfit-004",
+      "title": "Wire exercise and muscle routes to Supabase queries",
+      "category": "Workout Database",
+      "priority": "high",
+      "status": "todo",
+      "difficulty": "medium",
+      "recommended_order": 4,
+      "why_it_matters": "Four route files currently import from static TypeScript data files instead of querying Supabase. Once the seed data exists in the DB, these routes need to be updated to read from Supabase so that the exercise library reflects live data, supports search/filter, and is editable without code changes.",
+      "files_likely_affected": [
+        "src/routes/exercises.index.tsx",
+        "src/routes/exercises.$slug.tsx",
+        "src/routes/muscles.index.tsx",
+        "src/routes/muscles.$slug.tsx"
+      ],
+      "dependencies": [
+        "trainrfit-002",
+        "trainrfit-003"
+      ],
+      "acceptance_criteria": [
+        "All four routes use supabase.from() queries instead of static file imports",
+        "Exercise listing page supports filter by muscle group and difficulty",
+        "Exercise detail page shows associated muscle groups pulled from exercise_muscles join",
+        "Muscle detail page shows exercises that target that muscle",
+        "Pages handle loading and empty states gracefully",
+        "Static data file imports are removed from these route files"
+      ]
+    },
+    {
+      "id": "trainrfit-005",
+      "title": "Save onboarding results to user profile in Supabase",
+      "category": "Member Features",
+      "priority": "high",
+      "status": "todo",
+      "difficulty": "medium",
+      "recommended_order": 5,
+      "why_it_matters": "The onboarding flow collects fitness goals, experience level, and program preferences — but saves everything to localStorage only. This means the data is lost if the user clears their browser, switches devices, or logs in from a new machine. The dashboard and AI coach (future) both need access to onboarding data to personalise the experience.",
+      "files_likely_affected": [
+        "src/routes/onboarding.tsx",
+        "src/routes/onboarding.index.tsx",
+        "src/routes/onboarding.results.tsx",
+        "src/lib/onboarding/storage.ts",
+        "src/lib/onboarding/types.ts",
+        "supabase/migrations/ (add onboarding columns to profiles)"
+      ],
+      "dependencies": [
+        "trainrfit-001"
+      ],
+      "acceptance_criteria": [
+        "Onboarding completion writes fitness_goal, experience_level, and days_per_week to the profiles table",
+        "If a user has already completed onboarding (profile fields populated), the onboarding flow is skipped on dashboard load",
+        "localStorage is still used as a session buffer but is synced to DB on completion",
+        "Onboarding data survives a browser clear and re-login"
+      ]
+    },
+    {
+      "id": "trainrfit-006",
+      "title": "User profile page — view and edit",
+      "category": "Member Features",
+      "priority": "high",
+      "status": "todo",
+      "difficulty": "medium",
+      "recommended_order": 6,
+      "why_it_matters": "There is no route where a logged-in user can see or update their own profile. display_name and username exist in the profiles table but are never shown or editable in the UI. This is a basic expectation of any authenticated app and is a prerequisite for public member profiles, creator profiles, and community features.",
+      "files_likely_affected": [
+        "src/routes/ (new profile.tsx route)",
+        "src/components/ (new profile form component)",
+        "src/integrations/supabase/client.ts"
+      ],
+      "dependencies": [
+        "trainrfit-001"
+      ],
+      "acceptance_criteria": [
+        "Authenticated users can visit /profile and see their display_name, username, and account stats (total sessions, saved exercises)",
+        "Users can edit display_name and username with validation (username: alphanumeric + underscores, unique)",
+        "Changes persist to the profiles table in Supabase",
+        "Avatar upload supported via Supabase Storage (even if basic)",
+        "Unauthenticated visitors are redirected to /auth"
+      ]
+    },
+    {
+      "id": "trainrfit-007",
+      "title": "Creator application form with real DB submission",
+      "category": "Creator Features",
+      "priority": "high",
+      "status": "todo",
+      "difficulty": "medium",
+      "recommended_order": 7,
+      "why_it_matters": "The /become-a-coach route is currently a static landing page — nothing is submitted, stored, or reviewed. This is the entry point for the creator side of the platform. Without a real application flow, no legitimate creators can onboard and the admin dashboard creator application queue (currently mock data) has nothing to display.",
+      "files_likely_affected": [
+        "src/routes/become-a-coach.tsx",
+        "supabase/migrations/ (new creator_applications table)",
+        "src/integrations/supabase/types.ts"
+      ],
+      "dependencies": [
+        "trainrfit-001"
+      ],
+      "acceptance_criteria": [
+        "Form collects: display name, specialty, bio, Instagram/YouTube handle, and reason for applying",
+        "Submission inserts a row into a creator_applications table with status = pending",
+        "Duplicate submissions (same user_id) are prevented",
+        "Admin dashboard application queue reads from creator_applications table instead of mock data",
+        "Applicant sees a confirmation state after submitting"
+      ]
+    },
+    {
+      "id": "trainrfit-008",
+      "title": "Create creator_profiles DB table and schema",
+      "category": "Creator Features",
+      "priority": "high",
+      "status": "todo",
+      "difficulty": "low",
+      "recommended_order": 8,
+      "why_it_matters": "Every creator feature — public profiles, program sales, community feeds, creator dashboard analytics, payouts — requires a creator_profiles table. This is the single most important schema addition after the profiles base table. It is a dependency for wiring the coach listing, creator dashboard, and payment flows.",
+      "files_likely_affected": [
+        "supabase/migrations/ (new migration)",
+        "src/integrations/supabase/types.ts"
+      ],
+      "dependencies": [
+        "trainrfit-001"
+      ],
+      "acceptance_criteria": [
+        "creator_profiles table created with columns: id, user_id (FK to profiles), slug (unique), display_name, bio, specialty, banner_url, avatar_url, approved (boolean), revenue_share_pct (integer, default 70), created_at",
+        "Approved flag is false by default — admin must approve",
+        "Slug is unique and URL-safe",
+        "RLS policies set so only the owning user can update their own profile; anyone can read approved profiles",
+        "TypeScript types regenerated"
+      ]
+    },
+    {
+      "id": "trainrfit-009",
+      "title": "Wire coach listing and profiles to Supabase",
+      "category": "Creator Features",
+      "priority": "medium",
+      "status": "todo",
+      "difficulty": "high",
+      "recommended_order": 9,
+      "why_it_matters": "The entire coaches section (/coaches, /coaches/:slug, /coaches/:slug/programs/:slug) is powered by 437 lines of hardcoded mock data in src/lib/coaches/data.ts. These are real public fitness figures used as placeholders. This must be replaced with real DB queries before any creator can have an actual profile on the platform.",
+      "files_likely_affected": [
+        "src/routes/coaches.index.tsx",
+        "src/routes/coaches.$slug.tsx",
+        "src/routes/coaches.$slug.programs.$programSlug.tsx",
+        "src/lib/coaches/data.ts (to be retired)",
+        "src/lib/coaches/storage.ts",
+        "src/components/coaches/coach-card.tsx",
+        "src/components/coaches/program-card.tsx"
+      ],
+      "dependencies": [
+        "trainrfit-008"
+      ],
+      "acceptance_criteria": [
+        "Coach listing reads from creator_profiles where approved = true",
+        "Individual coach profile page loads by slug from creator_profiles",
+        "Coach programs load from a workout_plans or creator_programs table linked to creator_profiles",
+        "Mock data file src/lib/coaches/data.ts is removed or clearly archived",
+        "Coach photos load from Supabase Storage URLs, not local asset files",
+        "Pages handle zero-state (no approved creators yet) gracefully"
+      ]
+    },
+    {
+      "id": "trainrfit-010",
+      "title": "Personal records tracking on dashboard",
+      "category": "Member Features",
+      "priority": "medium",
+      "status": "todo",
+      "difficulty": "medium",
+      "recommended_order": 10,
+      "why_it_matters": "Personal records are the primary motivational metric for gym users. The tracker already stores sets/reps/weight per exercise in the DB — the raw data exists. Surfacing PRs on the dashboard gives users a concrete reason to return, log workouts consistently, and pursue progressive overload. It is also the foundation for the gamification layer (badge for new PR, XP bonus, etc.).",
+      "files_likely_affected": [
+        "supabase/migrations/ (new personal_records table or DB function)",
+        "src/routes/tracker.tsx (detect new PR on session save)",
+        "src/routes/dashboard.tsx (display PR list)",
+        "src/integrations/supabase/types.ts"
+      ],
+      "dependencies": [
+        "trainrfit-002",
+        "trainrfit-004"
+      ],
+      "acceptance_criteria": [
+        "personal_records table stores: user_id, exercise_id, best_weight, best_reps, achieved_at, session_id",
+        "After a workout session is saved, a DB function or client-side check compares new sets against existing PRs",
+        "New PRs are upserted into personal_records",
+        "Dashboard shows top 5 PRs with exercise name, weight, reps, and date achieved",
+        "PR detection handles both max weight and max reps as separate records"
+      ]
+    }
+  ]
+}
