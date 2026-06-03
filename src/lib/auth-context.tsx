@@ -37,7 +37,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const user = session?.user ?? null;
-  const ADMIN_EMAILS = ["andrewheldy.ai@gmail.com"];
+  // Admin list — set VITE_ADMIN_EMAILS as a comma-separated list in .env
+  // Falls back to a compile-time default so local dev still works without config.
+  const rawAdminEmails = import.meta.env.VITE_ADMIN_EMAILS ?? "andrewheldy.ai@gmail.com";
+  const ADMIN_EMAILS = rawAdminEmails.split(",").map((e: string) => e.trim().toLowerCase());
   const isAdmin = !!user?.email && ADMIN_EMAILS.includes(user.email.toLowerCase());
 
   return (
