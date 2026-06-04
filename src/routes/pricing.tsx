@@ -1,14 +1,14 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { PremiumOffer } from "@/components/premium-offer";
+import { PricingSection } from "@/components/pricing-section";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
     meta: [
       { title: "Pricing — trainr Pro" },
-      { name: "description", content: "trainr Pro: free 30-day trial, then $4.99/month. Cancel anytime." },
-      { property: "og:title", content: "trainr Pro Pricing" },
-      { property: "og:description", content: "Track better. Train smarter. Reach your goals faster." },
+      { name: "description", content: "trainr plans: Free, Pro, and Team. Monthly or yearly billing — save with annual." },
+      { property: "og:title", content: "trainr Pricing" },
+      { property: "og:description", content: "Track better. Train smarter. Choose monthly or yearly." },
     ],
   }),
-  component: () => <PremiumOffer showSecondaryCTA={false} redirectTo="/my-lift" />,
+  component: () => <PricingSection />,
 });
