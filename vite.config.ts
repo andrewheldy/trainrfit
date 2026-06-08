@@ -12,4 +12,11 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  // This is an SSR app. Outside the Lovable sandbox the config defaults to
+  // skipping Nitro, leaving a client-only Vite build with no index.html — which
+  // Vercel serves as a 404 at "/". Force Nitro on with the Vercel preset so the
+  // build emits the Nitro Vercel output (config.json / nitro.json + server fn)
+  // that Vercel's native TanStack Start support deploys. Vercel auto-detects the
+  // preset during its build, but we pin it so local/CI builds match.
+  nitro: { preset: "vercel" },
 });
