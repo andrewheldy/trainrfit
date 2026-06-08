@@ -51,6 +51,12 @@ export function SiteNav() {
             {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
           <Link
+            to="/creator-onboarding"
+            className="inline-flex items-center rounded-md border border-lime/40 bg-lime/5 px-3 py-1.5 text-xs font-medium text-lime transition-colors hover:bg-lime/10"
+          >
+            Become a Creator
+          </Link>
+          <Link
             to="/creator-dashboard"
             className="inline-flex items-center rounded-md border border-border px-3 py-1.5 text-xs font-medium text-muted-foreground transition-colors hover:border-lime/40 hover:text-foreground"
           >
@@ -114,9 +120,16 @@ export function SiteNav() {
             </Link>
           ))}
           <Link
+            to="/creator-onboarding"
+            onClick={() => setOpen(false)}
+            className="mt-3 block w-full rounded-md border border-lime/40 bg-lime/5 px-3 py-2.5 text-center text-sm font-medium text-lime"
+          >
+            Become a Creator
+          </Link>
+          <Link
             to="/creator-dashboard"
             onClick={() => setOpen(false)}
-            className="mt-3 block w-full rounded-md border border-border px-3 py-2.5 text-center text-sm font-medium text-muted-foreground"
+            className="mt-2 block w-full rounded-md border border-border px-3 py-2.5 text-center text-sm font-medium text-muted-foreground"
           >
             Creator Studio
           </Link>
