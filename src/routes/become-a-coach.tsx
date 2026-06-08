@@ -1,4 +1,4 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import {
   ArrowRight,
   BarChart3,
@@ -75,6 +75,7 @@ const BENEFITS = [
 ];
 
 function BecomeACoach() {
+  const navigate = useNavigate();
   return (
     <div>
       {/* Hero */}
@@ -86,21 +87,21 @@ function BecomeACoach() {
               Turn Your Training System Into <span className="text-lime">Recurring Revenue.</span>
             </h1>
             <p className="mt-5 max-w-2xl text-base text-muted-foreground sm:text-lg">
-              Publish workout programs, build your audience, and earn income through Gym Lift.
+              Publish workout programs, build your audience, and earn income through trainr.
               Bring your followers a real platform — built for serious training, not vanity metrics.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <a
-                href="#apply"
+              <Link
+                to="/creator-onboarding"
                 className="inline-flex items-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90"
               >
-                Apply To Become A Coach <ArrowRight className="h-4 w-4" />
-              </a>
+                Set Up Creator Profile <ArrowRight className="h-4 w-4" />
+              </Link>
               <Link
                 to="/coaches"
                 className="inline-flex items-center rounded-md border border-border px-6 py-3 text-sm font-semibold hover:bg-elevated"
               >
-                See Existing Coaches
+                See Existing Creators
               </Link>
             </div>
           </div>
@@ -179,9 +180,7 @@ function BecomeACoach() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                const form = e.currentTarget;
-                form.reset();
-                alert("Thanks! Your application has been received. We'll be in touch within 5 business days.");
+                navigate({ to: "/creator-onboarding" });
               }}
               className="mt-8 grid gap-4"
             >
@@ -205,7 +204,7 @@ function BecomeACoach() {
                 type="submit"
                 className="mt-2 inline-flex items-center justify-center gap-2 rounded-md bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:opacity-90"
               >
-                Submit Application <ArrowRight className="h-4 w-4" />
+                Continue to Creator Setup <ArrowRight className="h-4 w-4" />
               </button>
             </form>
           </div>

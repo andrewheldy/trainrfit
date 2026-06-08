@@ -37,6 +37,7 @@ export type Coach = {
   slug: string;
   name: string;
   specialty: string;
+  headline?: string;
   bio: string;
   photo: string;
   photoPosition?: string;
@@ -44,9 +45,17 @@ export type Coach = {
   followers: number;
   verified: boolean;
   categories: CoachCategory[];
+  disciplines?: string[];
   social: { twitter?: string; instagram?: string; youtube?: string };
   ratings: { score: number; count: number };
   programs: Program[];
+  yearsTraining?: string;
+  yearsCoaching?: string;
+  clientsCoached?: string;
+  certifications?: string[];
+  welcomeVideoUrl?: string;
+  welcomeVideoThumbnail?: string;
+  communityMembers?: number;
 };
 
 const u = (id: string) => `https://images.unsplash.com/${id}?w=1200&q=80`;
@@ -67,14 +76,21 @@ export const COACHES: Coach[] = [
     slug: "jeff-nippard",
     name: "Jeff Nippard",
     specialty: "Science-Based Muscle Building",
+    headline: "Science-Based Hypertrophy & Strength Coach",
     bio: "Natural pro bodybuilder and biochemistry graduate. Jeff distills the latest exercise science into practical, evidence-based training programs that deliver measurable results for beginners to advanced lifters.",
     photo: jeffNippardPhoto,
     banner: u("photo-1574680096145-d05b474e2155"),
     followers: 2450000,
     verified: true,
     categories: ["Muscle Building", "Strength", "Beginner Friendly"],
+    disciplines: ["Strength Training", "Muscle Building", "Powerlifting", "Fat Loss"],
     social: { instagram: "@jeffnippard", youtube: "@JeffNippard" },
     ratings: { score: 4.9, count: 18200 },
+    yearsTraining: "15+ years",
+    yearsCoaching: "10-15 years",
+    clientsCoached: "500-1,000",
+    certifications: ["NSCA", "ACSM"],
+    communityMembers: 18400,
     programs: [
       {
         slug: "science-based-muscle",
@@ -104,14 +120,21 @@ export const COACHES: Coach[] = [
     slug: "chris-bumstead",
     name: "Chris Bumstead",
     specialty: "Classic Physique Blueprint",
+    headline: "5x Mr. Olympia · Classic Physique Specialist",
     bio: "5x Mr. Olympia Classic Physique champion. CBum brings his championship-level training philosophy to structured programs focused on symmetry, proportion, and stage-ready conditioning.",
     photo: chrisBumsteadPhoto,
     banner: u("photo-1583473848882-f9a5bc7fd2ee"),
     followers: 3200000,
     verified: true,
     categories: ["Muscle Building", "Strength"],
+    disciplines: ["Bodybuilding", "Muscle Building", "Strength Training"],
     social: { instagram: "@cbum", youtube: "@ChrisBumstead" },
     ratings: { score: 4.8, count: 26400 },
+    yearsTraining: "10-15 years",
+    yearsCoaching: "3-5 years",
+    clientsCoached: "100-500",
+    certifications: [],
+    communityMembers: 28600,
     programs: [
       {
         slug: "classic-physique",
@@ -147,8 +170,14 @@ export const COACHES: Coach[] = [
     followers: 980000,
     verified: true,
     categories: ["Athletic Performance", "Strength", "Beginner Friendly"],
+    disciplines: ["Strength Training", "Endurance", "Running", "Functional Fitness"],
     social: { instagram: "@nickbarefitness", youtube: "@NickBare" },
     ratings: { score: 4.9, count: 9400 },
+    yearsTraining: "10-15 years",
+    yearsCoaching: "5-10 years",
+    clientsCoached: "100-500",
+    certifications: ["NSCA"],
+    communityMembers: 9200,
     programs: [
       {
         slug: "hybrid-athlete",
@@ -178,14 +207,21 @@ export const COACHES: Coach[] = [
     slug: "krissy-cela",
     name: "Krissy Cela",
     specialty: "Strength & Sculpt",
+    headline: "Women's Strength, Sculpt & Confidence Coach",
     bio: "Co-founder of EvolveYou and one of the most influential voices in women's strength training. Krissy makes lifting accessible, empowering, and results-driven for women at every level.",
     photo: krissyCelaPhoto,
     banner: u("photo-1571019614242-c5c5dee9f50b"),
     followers: 2100000,
     verified: true,
     categories: ["Women's Fitness", "Muscle Building", "Strength", "Beginner Friendly"],
+    disciplines: ["Strength Training", "Muscle Building", "Mobility", "Fat Loss"],
     social: { instagram: "@krissycela", youtube: "@KrissyCela" },
     ratings: { score: 4.9, count: 12100 },
+    yearsTraining: "10-15 years",
+    yearsCoaching: "5-10 years",
+    clientsCoached: "1,000+",
+    certifications: ["NASM", "Yoga Alliance"],
+    communityMembers: 15200,
     programs: [
       {
         slug: "strength-and-sculpt",
@@ -221,8 +257,10 @@ export const COACHES: Coach[] = [
     followers: 3100000,
     verified: true,
     categories: ["Muscle Building", "Strength"],
+    disciplines: ["Muscle Building", "Strength Training"],
     social: { instagram: "@sam_sulek", youtube: "@SamSulek" },
     ratings: { score: 4.7, count: 15800 },
+    communityMembers: 14600,
     programs: [
       {
         slug: "raw-mass",
@@ -252,14 +290,21 @@ export const COACHES: Coach[] = [
     slug: "jeremy-ethier",
     name: "Jeremy Ethier",
     specialty: "Beginner Transformation",
+    headline: "Kinesiologist · Built With Science Founder",
     bio: "Kinesiologist and founder of Built With Science. Jeremy transforms beginners into knowledgeable lifters through research-backed programs with clear video instruction and tracking.",
     photo: jeremyEthierPhoto,
     banner: u("photo-1583454110551-21f2fa2afe61"),
     followers: 1850000,
     verified: true,
     categories: ["Beginner Friendly", "Muscle Building", "Fat Loss"],
+    disciplines: ["Muscle Building", "Fat Loss", "Functional Fitness", "Strength Training"],
     social: { instagram: "@jeremyethier", youtube: "@JeremyEthier" },
     ratings: { score: 4.9, count: 22400 },
+    yearsTraining: "10-15 years",
+    yearsCoaching: "5-10 years",
+    clientsCoached: "1,000+",
+    certifications: ["NASM", "NSCA"],
+    communityMembers: 22800,
     programs: [
       {
         slug: "beginner-transformation",
@@ -295,8 +340,14 @@ export const COACHES: Coach[] = [
     followers: 890000,
     verified: true,
     categories: ["Muscle Building", "Strength"],
+    disciplines: ["Muscle Building", "Strength Training", "Powerlifting", "Recovery"],
     social: { instagram: "@rpdrmike", youtube: "@RenaissancePeriodization" },
     ratings: { score: 4.9, count: 8200 },
+    yearsTraining: "15+ years",
+    yearsCoaching: "10-15 years",
+    clientsCoached: "1,000+",
+    certifications: ["NSCA", "ACSM"],
+    communityMembers: 8600,
     programs: [
       {
         slug: "advanced-hypertrophy",
@@ -332,8 +383,10 @@ export const COACHES: Coach[] = [
     followers: 2600000,
     verified: true,
     categories: ["Muscle Building", "Strength", "Beginner Friendly"],
+    disciplines: ["Muscle Building", "Bodybuilding", "Strength Training"],
     social: { instagram: "@davidlaid", youtube: "@DavidLaid" },
     ratings: { score: 4.8, count: 13200 },
+    communityMembers: 12800,
     programs: [
       {
         slug: "aesthetic-physique",
@@ -370,8 +423,14 @@ export const COACHES: Coach[] = [
     followers: 3400000,
     verified: true,
     categories: ["Strength", "Mobility", "Beginner Friendly", "Athletic Performance"],
+    disciplines: ["Strength Training", "Mobility", "Functional Fitness", "Recovery", "Sports Performance"],
     social: { instagram: "@athleanx", youtube: "@ATHLEANX" },
     ratings: { score: 4.9, count: 28600 },
+    yearsTraining: "15+ years",
+    yearsCoaching: "15+ years",
+    clientsCoached: "1,000+",
+    certifications: ["NSCA", "ACSM", "CPR/AED"],
+    communityMembers: 32400,
     programs: [
       {
         slug: "injury-free-training",
@@ -407,8 +466,10 @@ export const COACHES: Coach[] = [
     followers: 1700000,
     verified: true,
     categories: ["Women's Fitness", "Muscle Building", "Strength", "Beginner Friendly"],
+    disciplines: ["Strength Training", "Muscle Building", "Mobility", "Fat Loss"],
     social: { instagram: "@whitneyysimmons", youtube: "@WhitneySimmons" },
     ratings: { score: 4.9, count: 9800 },
+    communityMembers: 11200,
     programs: [
       {
         slug: "womens-strength",
